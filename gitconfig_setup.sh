@@ -36,7 +36,7 @@ git config --global diff.tool vimdiff
 git config --global difftool.prompt false
 git config --global merge.tool vimdiff
 
-# git config --global alias.ks "difftool -y -t Kaleidoscope"
+git config --global alias.kd3 "difftool -y -t kdiff3"
 
 # This gives us 'ours', 'base', and 'theirs', instead of just 'ours' and
 # 'theirs'. More details:
