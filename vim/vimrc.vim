@@ -7,7 +7,7 @@
 " :PluginSearch foo - searches for foo; append `!` to refresh local cache
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
-set nocompatible " this Vi IMproved not vi (required Vundle)
+set nocompatible " this Vi IMproved not vi (required by Vundle)
 filetype off " required for Vundle to work: turn it back after bundles list
 set rtp+=~/.vim/bundle/Vundle.vim " Vundle  runtime path
 
@@ -24,6 +24,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'YankRing.vim'
 Plugin 'google/vim-maktaba'
 Plugin 'google/vim-codefmtlib'
 Plugin 'google/vim-codefmt'
@@ -53,6 +54,7 @@ Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-haml'
@@ -61,6 +63,7 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'aaronbieber/vim-quicktask'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
+Plugin 'xolox/vim-session'
 Plugin 'terryma/vim-multiple-cursors'
 
 " this plugin for indenting php: not sure if it is useful! To test beforehand
@@ -136,11 +139,17 @@ set cursorline      " Dislay a line under the current cursor line
 set number          " Display line numbers, use set nonumber to disable
 set showcmd         " Show (partial) command in status line.
 
+set ignorecase      " case insensitive searching
+set smartcase       " but become case sensitive if you type uppercase characters
+
 set showmatch       " Show matching brackets/braces/parantheses.
 set autoindent      " set autoindent
+set copyindent      " copy the previous indentation on autoindenting
+set smarttab        " smart tab handling for indenting
 set shiftwidth=2    " set shiftwidth to 2 spaces
 set tabstop=2       " set tab to 2 spaces
 set softtabstop=2   " makes the spaces feel like real tabs
+set shiftround " makes indenting a multiple of shiftwidth
 set expandtab       " replace Tabs with white spaces, unless using Ctrl-V<tab>
 " modifiers private, public and protected indented +1 space and lineup +1space
 "set cinoptions=+g1,+h1
@@ -148,6 +157,15 @@ set expandtab       " replace Tabs with white spaces, unless using Ctrl-V<tab>
 " highlight column textwidth+1, ...
 "set colorcolumn=+1,+2,+3,+4,+5,+6,+7,+8,+9,+10
 set colorcolumn=0
+
+set undofile " stores undo state even when files are closed (in undodir)
+
+" This changes the default display of tab and CR chars in list mode
+set listchars=tab:▸\ ,eol:¬
+
+" this solves the "unable to open swap file" errors on Win7
+set dir=~/tmp,/var/tmp,/tmp,$TEMP
+set undodir=~/tmp,/var/tmp,/tmp,$TEMP
 
 "---------------------------------------
 " prevents vim from continuing the comment automatically  on the next line
@@ -362,6 +380,29 @@ set noshowmode " Hide the default mode text below status line
 set showtabline=2 " Always show the tabline even if we have only one tab"
 "--------------------------------------------------------------------
 
+"---------------------------------------
+" reset vimrc augroup
+"---------------------------------------
+" We reset the vimrc augroup. Autocommands are added to this group throughout
+" the file
+augroup vimrc
+  autocmd!
+augroup END
+"--------------------------------------------------------------------
+
+"---------------------------------------
+"
+"---------------------------------------
+augroup vimrc
+  " Automatically delete trailing DOS-returns and whitespace on file open and
+  " write.
+  autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
+augroup END
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" Encoding
+"---------------------------------------
 " Unicode support (taken from http://vim.wikia.com/wiki/Working_with_Unicode)
 if has("multi_byte")
   if &termencoding == ""
@@ -371,6 +412,43 @@ if has("multi_byte")
   setglobal fileencoding=utf-8
   set fileencodings=ucs-bom,utf-8,latin1
 endif
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" Session plugin
+"---------------------------------------
+" you also need to run :SaveSession once to create the default.vim session that
+" will then be autoloaded/saved from then on
+
+let g:session_autoload        = 'no'
+let g:session_autosave        = 'yes'
+let g:session_default_to_last = 'yes'
+let g:session_directory       = '~/tmp/vim/sessions'
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" YankRing Plugin
+"---------------------------------------
+let g:yankring_history_dir = '$HOME/tmp/vim'
+" this is so that single char deletes don't end up in the yankring
+let g:yankring_min_element_length = 2
+let g:yankring_window_height = 14
+nnoremap <leader>R :YRShow<CR>
+
+" this makes Y yank from the cursor to the end of the line, which makes more
+" sense than the default of yanking the whole current line (we can use yy for
+" that)
+function! YRRunAfterMaps()
+    nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
+endfunction
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" Plugin vim-git
+"---------------------------------------
+" Turn on spell checking by default for git commit messages
+au vimrc FileType gitcommit setlocal spell! spelllang=en_us
+"--------------------------------------------------------------------
 
 "---------------------------------------
 " Solarized theme
