@@ -70,6 +70,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin '2072/PHP-Indenting-for-VIm'
 
 Plugin 'nathanaelkane/vim-indent-guides'
+" buffer explorer: use <leader>+be/bs/bv/bt
 Plugin 'jlanzarotta/bufexplorer'
 
 Plugin 'wincent/command-t'
@@ -258,10 +259,14 @@ nnoremap g, g,zz
 " ]s next misspelled word
 " [s previous misspelled word
 " zg add to dict
+" zw like zg but mark the word as a wrong (bad) word
 " z= get suggestions
+" zug/zuw undo zw and zg, remove the word from the dic
+
 noremap <leader>sn ]s
 noremap <leader>sp [s
 noremap <leader>sa zg
+noremap <leader>sw zw
 noremap <leader>su z=
 " Toggle and untoggle spell checking
 noremap <leader>ss :setlocal spell! spelllang=en_us<cr>
