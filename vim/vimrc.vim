@@ -168,6 +168,14 @@ set listchars=tab:▸\ ,eol:¬
 set dir=~/tmp,/var/tmp,/tmp,$TEMP
 set undodir=~/tmp,/var/tmp,/tmp,$TEMP
 
+if v:version >= 704
+  " The new Vim regex engine is currently slooooow as hell which makes syntax
+  " highlighting slow, which introduces typing latency.
+  " Consider removing this in the future when the new regex engine becomes
+  " faster.
+  set regexpengine=1
+endif
+
 "---------------------------------------
 " prevents vim from continuing the comment automatically  on the next line
 "---------------------------------------
