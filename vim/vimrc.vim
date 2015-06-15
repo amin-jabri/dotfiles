@@ -470,6 +470,8 @@ au vimrc FileType gitcommit setlocal spell! spelllang=en_us
 syntax enable
 let g:solarized_termtrans = 0
 let g:solarized_termcolors=256
+" visibility of white-spaces when using set list. Could be: low, normal or high
+let g:solarized_visibility="normal"
 setlocal background=light "light | dark"
 colorscheme solarized
 call togglebg#map("<F5>")
