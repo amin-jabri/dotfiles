@@ -124,7 +124,14 @@ set rtp+=$HOME/dotfiles/vim
 " change the mapleader from \ to ,
 "---------------------------------------
 let mapleader=","
+let maplocalleader="-"
 "--------------------------------------------------------------------
+
+" with this, we can now type ",." to exit out of insert mode
+" if we really wanted to type ",.", then just type one char, wait half a sec,
+" type another
+inoremap ,. <Esc>
+vnoremap ,. <Esc>
 
 set autoread        " automatically update file when edited outside of Vim
 
@@ -163,10 +170,16 @@ set undofile " stores undo state even when files are closed (in undodir)
 
 " This changes the default display of tab and CR chars in list mode
 set listchars=tab:▸\ ,eol:¬
+set list
 
 " this solves the "unable to open swap file" errors on Win7
 set dir=~/tmp,/var/tmp,/tmp,$TEMP
 set undodir=~/tmp,/var/tmp,/tmp,$TEMP
+
+" this makes vim's regex engine "not stupid"
+" see :h magic
+nnoremap / /\v
+vnoremap / /\v
 
 if v:version >= 704
   " The new Vim regex engine is currently slooooow as hell which makes syntax
@@ -243,6 +256,10 @@ let g:is_posix = 1
 " at the end of the map command
 set shortmess=a
 
+" These create newlines like o and O but stay in normal mode
+nnoremap <silent> zj o<Esc>k
+nnoremap <silent> zk O<Esc>j
+
 " none of these should be word dividers, so make them not be
 set iskeyword+=_,$,@,%,#
 
@@ -257,6 +274,12 @@ nnoremap N Nzzzv
 " Also center the screen when jumping through the changelist
 nnoremap g; g;zz
 nnoremap g, g,zz
+
+" This makes j and k work on "screen lines" instead of on "file lines"; now,
+" when we have a long line that wraps to multiple screen lines, j and k behave as we
+" expect them to.
+nnoremap j gj
+nnoremap k gk
 "--------------------------------------------------------------------
 
 "---------------------------------------
@@ -285,9 +308,10 @@ set spellfile=$HOME/dotfiles/vim/spell/en.utf-8.add
 "---------------------------------------
 " use the search highlight
 "---------------------------------------
-set hlsearch
-set incsearch     " show search matches as you type"
-" disable hilight when pressing <leader>/
+set hlsearch    " highlight previously searched-for phrases
+set incsearch     " show search matches as I type the search string"
+set gdefault " this makes search/replace global by default
+" disable highlight when pressing <leader>/
 nmap <silent> <leader>/ :nohlsearch<CR>
 "--------------------------------------------------------------------
 
@@ -471,7 +495,7 @@ syntax enable
 let g:solarized_termtrans = 0
 let g:solarized_termcolors=256
 " visibility of white-spaces when using set list. Could be: low, normal or high
-let g:solarized_visibility="normal"
+let g:solarized_visibility="low"
 setlocal background=light "light | dark"
 colorscheme solarized
 call togglebg#map("<F5>")
