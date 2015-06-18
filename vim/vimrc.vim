@@ -400,8 +400,9 @@ nnoremap <silent> <leader>F :call FoldColumnToggle()<cr>
 "Enable delimitMate mappings. :DelimitMateOn
 "Disable delimitMate mappings. :DelimitMateOff
 "Switches the plug-in on and off. :DelimitMateSwitch
+
 let delimitMate_matchpairs = "(:),[:],{:},<:>"
-let delimitMate_quotes = "\" ' `"
+let delimitMate_quotes = "\" ' ` *"
 au FileType html let b:delimitMate_quotes = "\" '"
 "--------------------------------------------------------------------
 
