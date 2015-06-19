@@ -261,7 +261,7 @@ nnoremap <silent> zj o<Esc>k
 nnoremap <silent> zk O<Esc>j
 
 " none of these should be word dividers, so make them not be
-set iskeyword+=_,$,@,%,#
+set iskeyword+=_,$,@,%,#,*
 
 " Keep search matches in the middle of the window.
 " zz centers the screen on the cursor, zv unfolds any fold if the cursor
@@ -276,8 +276,8 @@ nnoremap g; g;zz
 nnoremap g, g,zz
 
 " This makes j and k work on "screen lines" instead of on "file lines"; now,
-" when we have a long line that wraps to multiple screen lines, j and k behave as we
-" expect them to.
+" when we have a long line that wraps to multiple screen lines, j and k behave
+"as we  expect them to.
 nnoremap j gj
 nnoremap k gk
 "--------------------------------------------------------------------
@@ -341,6 +341,16 @@ au BufWritePre *.* :silent! %s#\($\n\s*\)\+\%$##
 "--------------------------------------------------------------------
 
 "---------------------------------------
+" Automatically delete trailing whitespaces and Dos-returns
+"---------------------------------------
+augroup vimrc
+  " Automatically delete trailing DOS-returns and whitespace on file open and
+  " write.
+  autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
+augroup END
+"--------------------------------------------------------------------
+
+"---------------------------------------
 " Arrow keys remapping
 "---------------------------------------
 " disabling arrows left and right
@@ -401,6 +411,8 @@ nnoremap <silent> <leader>F :call FoldColumnToggle()<cr>
 "Disable delimitMate mappings. :DelimitMateOff
 "Switches the plug-in on and off. :DelimitMateSwitch
 
+let delimitMate_autoclose = 1
+let delimitMate_jump_expansion = 1
 let delimitMate_matchpairs = "(:),[:],{:},<:>"
 let delimitMate_quotes = "\" ' ` *"
 au FileType html let b:delimitMate_quotes = "\" '"
@@ -425,16 +437,6 @@ set showtabline=2 " Always show the tabline even if we have only one tab"
 " the file
 augroup vimrc
   autocmd!
-augroup END
-"--------------------------------------------------------------------
-
-"---------------------------------------
-"
-"---------------------------------------
-augroup vimrc
-  " Automatically delete trailing DOS-returns and whitespace on file open and
-  " write.
-  autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
 augroup END
 "--------------------------------------------------------------------
 
@@ -577,8 +579,8 @@ nmap <leader>b :CommandTBuffer<CR>
 " Syntastic plugin
 "---------------------------------------
 " Set your compiler executable(defaults to g++, or clang++ if g++ is not found)
-let g:syntastic_cpp_compiler = 'clang'
-let g:syntastic_cpp_checkers = ['gcc','ycm','clang_check','clang_tidy']
+let g:syntastic_cpp_compiler = 'g++'
+let g:syntastic_cpp_checkers = ['gcc','clang_check','clang_tidy']
 " in order to check header files
 let g:syntastic_cpp_check_header = 1
 " To enable header files being re-checked on every file write
@@ -587,17 +589,19 @@ let g:syntastic_cpp_auto_refresh_includes = 1
 let g:syntastic_cpp_no_default_include_dirs = 1
 " add additional compiler options to the syntax checking execution
 let g:syntastic_cpp_compiler_options = ' -std=c++1y -pthread'
-let g:syntastic_check_on_open=1
+let g:syntastic_check_on_open=0
 let g:syntastic_enable_signs=1
 " enable or disable debugging syntastic output
 let g:syntastic_debug = 0
 " Aggregate errors from multiple checkes
-let g:syntastic_aggregate_errors = 0
-" cpplint argument to be passed by syntastic
-" let g:syntastic_cpp_cpplint_thres =5
-" let g:syntastic_cpp_cpplint_args = '--verbose=3'
+let g:syntastic_aggregate_errors = 1
 let g:syntastic_error_symbol = '>>'
 let g:syntastic_warning_symbol = '>>'
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_mode_map = {
+       \ "mode": "active",
+       \ "active_filetypes": [],
+       \ "passive_filetypes": ["html"] }
 "--------------------------------------------------------------------
 
 "---------------------------------------
@@ -623,10 +627,6 @@ let g:ycm_filetype_blacklist = {
       \ 'vim' : 1
       \}
 let g:ycm_filetype_specific_completion_to_disable = {}
-" disable tab for YCM in favour of Ultisnips
-let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
-let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
-let g:ycm_key_detailed_diagnostics = '<leader>d'
 let g:ycm_error_symbol = '✗'
 let g:ycm_warning_symbol = '⚠'
 " fallback configuration file for compilation flags
@@ -637,17 +637,22 @@ let g:ycm_confirm_extra_conf = 1
 " and blacklisted item starts with !. This option isn't used when
 " disabling ycm_confirm_extra_conf
 let g:ycm_extra_conf_globlist = ['git_working/*', '~/*']
+" disable tab for YCM in favour of Ultisnips
+let g:ycm_key_list_select_completion=['<C-n>', '<Down>']
+let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
+let g:ycm_key_detailed_diagnostics = '<leader>d'
 
 nnoremap <leader>y :YcmForceCompileAndDiagnostics<cr>
 nnoremap <leader>yg :YcmCompleter GoTo<CR>
-nnoremap <leader>yd :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>yc :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>yD :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>yd :YcmCompleter GoToDeclaration<CR>
 "--------------------------------------------------------------------
 
 "---------------------------------------
 " UltiSnips plugin
 "---------------------------------------
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
+" Trigger configuration.
+" Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 "let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsListSnippets="<c-tab>"
@@ -688,37 +693,6 @@ au FileType javascript call JavaScriptFold()
 " Javascript libraries syntax plugin"
 "---------------------------------------
 let g:used_javascript_libs = 'jquery,angularjs, angularui'
-"--------------------------------------------------------------------
-
-"---------------------------------------
-" Rainbow Parentheses setting
-"---------------------------------------
-" let g:rbpt_colorpairs = [
-"       \ ['brown',       'RoyalBlue3'],
-"       \ ['Darkblue',    'SeaGreen3'],
-"       \ ['darkgray',    'DarkOrchid3'],
-"       \ ['darkgreen',   'firebrick3'],
-"       \ ['darkcyan',    'RoyalBlue3'],
-"       \ ['darkred',     'SeaGreen3'],
-"       \ ['darkmagenta', 'DarkOrchid3'],
-"       \ ['brown',       'firebrick3'],
-"       \ ['gray',        'RoyalBlue3'],
-"       \ ['black',       'SeaGreen3'],
-"       \ ['darkmagenta', 'DarkOrchid3'],
-"       \ ['Darkblue',    'firebrick3'],
-"       \ ['darkgreen',   'RoyalBlue3'],
-"       \ ['darkcyan',    'SeaGreen3'],
-"       \ ['darkred',     'DarkOrchid3'],
-"       \ ['red',         'firebrick3'],
-"       \ ]
-" let g:rbpt_max = 16
-" let g:rbpt_loadcmd_toggle = 0
-" " always on
-" au VimEnter * RainbowParenthesesToggle " Toggle it on/off
-" au Syntax * RainbowParenthesesLoadRound " (), the default when toggling
-" au Syntax * RainbowParenthesesLoadSquare " []
-" au Syntax * RainbowParenthesesLoadBraces " {}
-" au Syntax * RainbowParenthesesLoadChevrons  " <>
 "--------------------------------------------------------------------
 
 "---------------------------------------
