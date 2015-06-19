@@ -300,7 +300,7 @@ noremap <leader>sa zg
 noremap <leader>sw zw
 noremap <leader>su z=
 " Toggle and untoggle spell checking
-noremap <leader>ss :setlocal spell! spelllang=en_us<cr>
+noremap <leader>st :setlocal spell! spelllang=en_us<cr>
 " We want our cross-machine spell file to be used
 set spellfile=$HOME/dotfiles/vim/spell/en.utf-8.add
 "--------------------------------------------------------------------
@@ -459,11 +459,18 @@ endif
 "---------------------------------------
 " you also need to run :SaveSession once to create the default.vim session that
 " will then be autoloaded/saved from then on
+" Available <Action>:  save, open, close, delete, Tab<Action>, view
 
 let g:session_autoload        = 'no'
 let g:session_autosave        = 'yes'
 let g:session_default_to_last = 'yes'
 let g:session_directory       = '~/tmp/vim/sessions'
+let g:session_command_aliases = 1 " use Session<Action> alias for <Action>Session
+nnoremap <leader>so :OpenSession
+nnoremap <leader>ss :SaveSession
+nnoremap <leader>sd :DeleteSession<CR>
+nnoremap <leader>sc :CloseSession<CR>
+nnoremap <leader>sV :ViewSession<CR>
 "--------------------------------------------------------------------
 
 "---------------------------------------
