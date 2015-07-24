@@ -170,7 +170,8 @@ set undofile " stores undo state even when files are closed (in undodir)
 
 " This changes the default display of tab and CR chars in list mode
 set listchars=tab:▸\ ,eol:¬
-set list
+set nolist
+nnoremap <silent> <Leader>lt :set list!<CR>
 
 " this solves the "unable to open swap file" errors on Win7
 set dir=~/tmp,/var/tmp,/tmp,$TEMP
@@ -466,11 +467,11 @@ let g:session_autosave        = 'yes'
 let g:session_default_to_last = 'yes'
 let g:session_directory       = '~/tmp/vim/sessions'
 let g:session_command_aliases = 1 " use Session<Action> alias for <Action>Session
-nnoremap <leader>so :OpenSession
-nnoremap <leader>ss :SaveSession
-nnoremap <leader>sd :DeleteSession<CR>
-nnoremap <leader>sc :CloseSession<CR>
-nnoremap <leader>sV :ViewSession<CR>
+nnoremap <leader>So :OpenSession
+nnoremap <leader>Ss :SaveSession
+nnoremap <leader>Sd :DeleteSession<CR>
+nnoremap <leader>Sc :CloseSession<CR>
+nnoremap <leader>Sv :ViewSession<CR>
 "--------------------------------------------------------------------
 
 "---------------------------------------
