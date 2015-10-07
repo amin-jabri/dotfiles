@@ -10,8 +10,6 @@ source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
 
 # set our PATH
 PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:/usr/local/bin:$PATH"
-PATH="/usr/local/opt/vim/bin:$PATH"
-PATH="/usr/local/bin/python:$PATH"
 PATH="$(brew --prefix php55)/bin:$PATH"
 export PATH
 
