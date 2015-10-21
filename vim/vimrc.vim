@@ -26,11 +26,10 @@ Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'YankRing.vim'
 Plugin 'google/vim-maktaba'
+Plugin 'google/vim-glaive'
 Plugin 'google/vim-codefmtlib'
 Plugin 'google/vim-codefmt'
-" Also add Glaive, which is used to configure codefmt's maktaba flags. See
-" `:help :Glaive` for usage.
-Plugin 'google/vim-glaive'
+Plugin 'google/vim-syncopate'
 Plugin 'vim-jp/cpp-vim'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'majutsushi/tagbar'
@@ -406,6 +405,86 @@ nnoremap <silent> <leader>F :call FoldColumnToggle()<cr>
 "--------------------------------------------------------------------
 
 "---------------------------------------
+" reset vimrc augroup
+"---------------------------------------
+" We reset the vimrc augroup. Autocommands are added to this group throughout
+" the file
+augroup vimrc
+  autocmd!
+augroup END
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" Encoding
+"---------------------------------------
+" Unicode support (taken from http://vim.wikia.com/wiki/Working_with_Unicode)
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" map <F9> to :make
+"---------------------------------------
+"nnoremap <F9> :Make<CR><bar><Esc>:cw<CR>
+nnoremap <F9> :Make<CR>
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" astyle tool use from vim
+"---------------------------------------
+" Autoformat plugin key mapping
+"noremap <F3> :Autoformat<CR><CR>
+"let g:formatprg_cs = "astyle"
+" using astyle directly instead of Autoformat
+" formatting style is in ~/.astylerc
+nnoremap <F3> :%!astyle<CR><CR>
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" Google Glaive
+"---------------------------------------
+call glaive#Install()
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" Google CodeFmt requires Glaive
+"---------------------------------------
+" use :FormatCode and :[range] FormatLine
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
+Glaive codefmt plugin[mappings]
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" Google Syncopate requires Glaive
+"---------------------------------------
+" for sharing beautiful code
+" :SyncopateExportToClipboard
+" :SyncopateExportToBrowser
+" Optional: Enable Syncopate default key mapping: <Leader>< prefix
+Glaive syncopate plugin[mappings]
+" Glaive syncopate plugin[mappings]='qwer'
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" ListToggle
+"---------------------------------------
+" error list window
+let g:lt_location_list_toggle_map = '<leader>l'
+" Quickfix window
+let g:lt_quickfix_list_toggle_map = '<leader>q'
+" spawned window height
+let g:lt_height = 10
+"--------------------------------------------------------------------
+
+"---------------------------------------
 " delimitMate plugin
 "---------------------------------------
 "Enable delimitMate mappings. :DelimitMateOn
@@ -429,30 +508,6 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set noshowmode " Hide the default mode text below status line
 set showtabline=2 " Always show the tabline even if we have only one tab"
-"--------------------------------------------------------------------
-
-"---------------------------------------
-" reset vimrc augroup
-"---------------------------------------
-" We reset the vimrc augroup. Autocommands are added to this group throughout
-" the file
-augroup vimrc
-  autocmd!
-augroup END
-"--------------------------------------------------------------------
-
-"---------------------------------------
-" Encoding
-"---------------------------------------
-" Unicode support (taken from http://vim.wikia.com/wiki/Working_with_Unicode)
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
 "--------------------------------------------------------------------
 
 "---------------------------------------
@@ -510,46 +565,6 @@ let g:solarized_visibility="low"
 setlocal background=light "light | dark"
 colorscheme solarized
 call togglebg#map("<F5>")
-"--------------------------------------------------------------------
-
-"---------------------------------------
-" map <F9> to :make
-"---------------------------------------
-"nnoremap <F9> :Make<CR><bar><Esc>:cw<CR>
-nnoremap <F9> :Make<CR>
-"--------------------------------------------------------------------
-
-"---------------------------------------
-" ListToggle
-"---------------------------------------
-" error list window
-let g:lt_location_list_toggle_map = '<leader>l'
-" Quickfix window
-let g:lt_quickfix_list_toggle_map = '<leader>q'
-" spawned window height
-let g:lt_height = 10
-"--------------------------------------------------------------------
-
-"---------------------------------------
-" astyle tool use from vim
-"---------------------------------------
-" Autoformat plugin key mapping
-"noremap <F3> :Autoformat<CR><CR>
-"let g:formatprg_cs = "astyle"
-" using astyle directly instead of Autoformat
-" formatting style is in ~/.astylerc
-nnoremap <F3> :%!astyle<CR><CR>
-"--------------------------------------------------------------------
-
-"---------------------------------------
-" Google CodeFmt and Glaive
-"---------------------------------------
-" use :FormatCode and :[range] FormatLine
-" Add maktaba and codefmt to the runtimepath.
-" (The latter must be installed before it can be used.)
-call glaive#Install()
-" Optional: Enable codefmt's default mappings on the <Leader>= prefix.
-Glaive codefmt plugin[mappings]
 "--------------------------------------------------------------------
 
 "---------------------------------------
