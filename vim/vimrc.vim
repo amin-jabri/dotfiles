@@ -21,7 +21,7 @@ call vundle#begin()
 " My Vundle Plugin goes here:
 "====================
 " original repos on github
-Plugin 'gmarik/Vundle.vim'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'YankRing.vim'
@@ -468,9 +468,12 @@ Glaive codefmt plugin[mappings]
 " for sharing beautiful code
 " :SyncopateExportToClipboard
 " :SyncopateExportToBrowser
+" exclude line numbers from the output
+let g:html_number_lines = 0
 " Optional: Enable Syncopate default key mapping: <Leader>< prefix
 Glaive syncopate plugin[mappings]
 " Glaive syncopate plugin[mappings]='qwer'
+Glaive syncopate clear_bg
 "--------------------------------------------------------------------
 
 "---------------------------------------
