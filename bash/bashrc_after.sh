@@ -70,3 +70,6 @@ export LANG=en_US.UTF-8
 export TERM=screen-256color
 
 export POWERLINE_CONFIG_COMMAND=`which powerline-config`
+
+# No duplicates in command history
+export HISTCONTROL=ignoreboth:erasedups
