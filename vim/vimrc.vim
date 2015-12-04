@@ -22,7 +22,10 @@ call vundle#begin()
 "====================
 " original repos on github
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+" Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
+Plugin 'bling/vim-airline'
+Plugin 'chrisbra/csv.vim'
+Plugin 'edkolev/tmuxline.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'YankRing.vim'
 Plugin 'google/vim-maktaba'
@@ -166,6 +169,12 @@ set expandtab       " replace Tabs with white spaces, unless using Ctrl-V<tab>
 " highlight column textwidth+1, ...
 "set colorcolumn=+1,+2,+3,+4,+5,+6,+7,+8,+9,+10
 set colorcolumn=0
+
+set laststatus=2
+set t_Co=256
+set fillchars+=stl:\ ,stlnc:\
+set noshowmode " Hide the default mode text below status line
+set showtabline=2 " Always show the tabline even if we have only one tab"
 
 set undofile " stores undo state even when files are closed (in undodir)
 
@@ -503,16 +512,71 @@ let delimitMate_quotes = "\" ' ` *"
 au FileType html let b:delimitMate_quotes = "\" '"
 "--------------------------------------------------------------------
 
+" "---------------------------------------
+" " powerline plugin
+" "---------------------------------------
+" " powerline: when statusline is hidden or or appear only in split window
+" let g:Powerline_symbols = "unicode" "fancy | unicode?
+" "--------------------------------------------------------------------
+
 "---------------------------------------
-" powerline plugin
+" vim-airline plugin
 "---------------------------------------
-" powerline: when statusline is hidden or or appear only in split window
-let g:Powerline_symbols = "unicode" "fancy | unicode?
-set laststatus=2
-set t_Co=256
-set fillchars+=stl:\ ,stlnc:\
-set noshowmode " Hide the default mode text below status line
-set showtabline=2 " Always show the tabline even if we have only one tab"
+" Populate the g:airline_symbols dictionary with the powerline symbols
+let g:airline_powerline_fonts = 1
+" Automatically displays all buffers when there's only one tab open
+let g:airline#extensions#tabline#enabled = 1
+" Force status line to appear all the time
+let g:airline_theme='powerlineish'
+" enable/disable tmuxline integration
+let g:airline#extensions#tmuxline#enabled = 0
+" configure which mode colors should be used in tmux status line: normal, insert
+let airline#extensions#tmuxline#color_template = 'normal'
+" enable/disable syntastic integration
+let g:airline#extensions#syntastic#enabled = 1
+" configure the title text for quickfix and location list buffers
+let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
+let g:airline#extensions#quickfix#location_text = 'Location'
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" tmuxline plugin
+"---------------------------------------
+" Change theme with command (need vim running inside tmux)
+":Tmuxline [theme] [preset]
+" Persist generated theme with :TmuxlineSnapshot [file]
+" and source [file] in .tmux.conf
+
+" set preset: full, tmux, nightly_fox, crosshair, minimal, powerline, righteous
+"  other presets available in autoload/tmuxline/presets/*
+" let g:tmuxline_preset = 'powerline'
+let g:tmuxline_preset = {
+\'a'    : '#S',
+\'b'    : '',
+\'c'    : '',
+\'win'  : ['#F#I', '#W'],
+\'cwin' : ['#F#I:#P', '#W'],
+\'y' : ['%a %Y-%b-%d', '%R'],
+\'z' : '#h',
+\'options': {
+  \'status-justify': 'left'
+  \},
+\'win_options' : {
+  \'window-status-activity-attr' : 'none'
+  \}
+\}
+" CPU an memory usage segment requires
+"   https://github.com/thewtex/tmux-mem-cpu-load
+if executable('tmux-mem-cpu-load')
+  let g:tmuxline_preset.x = ['#(tmux-mem-cpu-load --graph 10 --interval 2)']
+endif
+
+" theme to use if airline-vim theme disabled in tmuxline: nightly_fox, zenburn
+" jellybeans, iceberg, airline, powerline, vim_powerline, vim_statusline_[1~3]
+let g:tmuxline_theme = 'powerline'
+
+" create a snapshot file of the last set statusline
+" tmuxline#api#snapshot('~/.tmuxline_snapshot.conf')
 "--------------------------------------------------------------------
 
 "---------------------------------------
