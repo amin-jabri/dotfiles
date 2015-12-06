@@ -553,7 +553,7 @@ let g:airline#extensions#quickfix#location_text = 'Location'
 let g:tmuxline_preset = {
 \'a'    : '#S',
 \'b'    : '',
-\'c'    : '',
+\'c'    : '#(whoami)',
 \'win'  : ['#F#I', '#W'],
 \'cwin' : ['#F#I:#P', '#W'],
 \'y' : ['%a %Y-%b-%d', '%R'],
