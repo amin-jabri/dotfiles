@@ -69,7 +69,7 @@ export LANG=en_US.UTF-8
 #tmux wants term to be set to screen or screen-256color
 export TERM=screen-256color
 
-export POWERLINE_CONFIG_COMMAND=`which powerline-config`
+export POWERLINE_CONFIG_COMMAND=`which powerline-config 2>/dev/null`
 
 # No duplicates in command history
 export HISTCONTROL=ignoreboth:erasedups
