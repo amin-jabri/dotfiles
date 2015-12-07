@@ -73,3 +73,9 @@ export POWERLINE_CONFIG_COMMAND=`which powerline-config 2>/dev/null`
 
 # No duplicates in command history
 export HISTCONTROL=ignoreboth:erasedups
+
+# Start ssh-agent
+if [ -z "$SSH_AUTH_SOCK" ] ; then
+	eval `ssh-agent -s` >/dev/null 2>&1
+	# ssh-add
+fi
