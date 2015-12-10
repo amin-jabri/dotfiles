@@ -59,6 +59,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-markdown', {'name': 'vim-dev-markdown'}
+Plugin 'xu-cheng/brew.vim'
 Plugin 'godlygeek/tabular'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-haml'

@@ -5,8 +5,8 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
     source $(brew --prefix)/etc/bash_completion
 fi
 
-# homebrew bash completion
-source `brew --prefix`/Library/Contributions/brew_bash_completion.sh
+# change beer mug emoji for finished build
+export HOMEBREW_INSTALL_BADGE="☕️"
 
 # brew-cask symlink into /Applications instead of ~/Applications
 # override on the command line when installing:
