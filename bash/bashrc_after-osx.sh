@@ -22,4 +22,3 @@ export PATH
 eval `dircolors ~/.dircolors/dircolors-solarized/dircolors.256dark`
 export LSCOLORS=gxfxbEaEBxxEhEhBaDaCaD
 export LC_CTYPE="en_US.UTF-8"
-########

@@ -70,6 +70,7 @@ Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-session'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'ktonga/vim-follow-my-lead'
 
 " this plugin for indenting php: not sure if it is useful! To test beforehand
 Plugin '2072/PHP-Indenting-for-VIm'
@@ -295,6 +296,12 @@ nnoremap k gk
 "--------------------------------------------------------------------
 
 "---------------------------------------
+" vim shell initialization: expand_aliases
+"---------------------------------------
+let $BASH_ENV="~/.aliases_bash.sh"
+"--------------------------------------------------------------------
+
+"---------------------------------------
 " enable spell checker
 "---------------------------------------
 " setlocal spell spelllang=en_us
@@ -478,14 +485,20 @@ Glaive codefmt plugin[mappings]
 " Google Syncopate requires Glaive
 "---------------------------------------
 " for sharing beautiful code
-" :SyncopateExportToClipboard
+" :SyncopateExportToClipboard (xclip is required)
 " :SyncopateExportToBrowser
 " exclude line numbers from the output
 let g:html_number_lines = 0
-" Optional: Enable Syncopate default key mapping: <Leader>< prefix
+" Enable Syncopate default key mapping: <Leader>< prefix
+" for example: <Leade><>  runs SyncopateExportToClipboard on the whole buffer
 Glaive syncopate plugin[mappings]
-" Glaive syncopate plugin[mappings]='qwer'
+" Enable syncopate commands
+Glaive syncopate plugin[commands]
+" Clear background when Exporting
 Glaive syncopate clear_bg
+" Settin-up the browser command to use with SyncopateExportToBrowser
+" defaults to 'sensible-browser'
+Glaive syncopate browser="open"
 "--------------------------------------------------------------------
 
 "---------------------------------------
