@@ -489,6 +489,8 @@ Glaive codefmt plugin[mappings]
 " :SyncopateExportToBrowser
 " exclude line numbers from the output
 let g:html_number_lines = 0
+" only current buffer is converted when diff
+let g:html_diff_one_file = 1
 " Enable Syncopate default key mapping: <Leader>< prefix
 " for example: <Leade><>  runs SyncopateExportToClipboard on the whole buffer
 Glaive syncopate plugin[mappings]
