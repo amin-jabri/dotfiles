@@ -23,9 +23,9 @@ call vundle#begin()
 " original repos on github
 Plugin 'VundleVim/Vundle.vim'
 " Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'bling/vim-airline'
-Plugin 'chrisbra/csv.vim'
+Plugin 'bling/vim-airline' " use instead of Lokaltog/powerline
 Plugin 'edkolev/tmuxline.vim'
+Plugin 'chrisbra/csv.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'YankRing.vim'
 Plugin 'google/vim-maktaba'
@@ -42,13 +42,13 @@ Plugin 'honza/vim-snippets'
 Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/syntastic'
 Plugin 'Valloric/YouCompleteMe'
+" Plugin 'jeaye/color_coded'
+Plugin 'rdnetto/YCM-Generator'
 Plugin 'ervandew/supertab'
 Plugin 'Raimondi/delimitMate'
 Plugin 'oblitum/rainbow'
 Plugin 'Valloric/ListToggle' "toggling the display of the quickfix list and the location-list
 Plugin 'Valloric/MatchTagAlways'
-" The sparkup vim script is in a subdirectory of this repo called vim.
-" Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tomtom/tlib_vim'
@@ -59,9 +59,9 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-markdown', {'name': 'vim-dev-markdown'}
+Plugin 'plasticboy/vim-markdown'
 Plugin 'xu-cheng/brew.vim'
 Plugin 'godlygeek/tabular'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-dispatch'
 Plugin 'kien/ctrlp.vim'
@@ -72,20 +72,15 @@ Plugin 'xolox/vim-session'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'ktonga/vim-follow-my-lead'
 
-" this plugin for indenting php: not sure if it is useful! To test beforehand
-Plugin '2072/PHP-Indenting-for-VIm'
-
 Plugin 'nathanaelkane/vim-indent-guides'
-" buffer explorer: use <leader>+be/bs/bv/bt
 Plugin 'jlanzarotta/bufexplorer'
 
 Plugin 'wincent/command-t'
-"Plugin 'wincent/Command-T'
 
 Plugin 'othree/html5-syntax.vim'
 Plugin 'hail2u/vim-css3-syntax'
 
-Plugin 'marijnh/tern_for_vim' "requires nodejs, npm. run npm install in folder
+" Plugin 'marijnh/tern_for_vim' "requires nodejs, npm. run npm install in folder
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'jiangmiao/simple-javascript-indenter'
@@ -95,18 +90,13 @@ Plugin 'groenewege/vim-less'
 Plugin 'jnwhiteh/vim-golang'
 Plugin 'evanmiller/nginx-vim-syntax'
 
-" Github repos of the user 'vim-scripts'  => can omit the username part
 Plugin 'jQuery'
 Plugin 'a.vim'
 Plugin 'Gundo'
 Plugin 'L9'
-" Avoid a name conflict with L9
-"Plugin 'user/L9', {'name': 'newL9'}
 Plugin 'FuzzyFinder'
-Plugin 'google.vim'
 Plugin 'Conque-GDB'
 Plugin 'wordlist.vim'
-Plugin 'Vimball'
 
 " non github repos: Plugin 'git://git.wincent.com/command-t.git'
 " ...
@@ -120,6 +110,16 @@ Plugin 'Vimball'
 "---------------------------------------
 call vundle#end()
 filetype plugin indent on "turn on back plugin and indent for filetype: required
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" reset vimrc augroup
+"---------------------------------------
+" We reset the vimrc augroup. Autocommands are added to this group throughout
+" the file
+augroup vimrc
+  autocmd!
+augroup END
 "--------------------------------------------------------------------
 
 set rtp+=$HOME/dotfiles/vim
@@ -177,6 +177,16 @@ set t_Co=256
 set fillchars+=stl:\ ,stlnc:\
 set noshowmode " Hide the default mode text below status line
 set showtabline=2 " Always show the tabline even if we have only one tab"
+
+" Highlight Class and Function names
+function! s:HighlightFunctionsAndClasses()
+  syn match cCustomFunc      "\w\+\s*\((\)\@="
+  syn match cCustomClass     "\w\+\s*\(::\)\@="
+
+  hi def link cCustomFunc      Function
+  hi def link cCustomClass     Function
+endfunction
+au vimrc Syntax * call s:HighlightFunctionsAndClasses()
 
 set undofile " stores undo state even when files are closed (in undodir)
 
@@ -424,16 +434,6 @@ nnoremap <silent> <leader>F :call FoldColumnToggle()<cr>
 "--------------------------------------------------------------------
 
 "---------------------------------------
-" reset vimrc augroup
-"---------------------------------------
-" We reset the vimrc augroup. Autocommands are added to this group throughout
-" the file
-augroup vimrc
-  autocmd!
-augroup END
-"--------------------------------------------------------------------
-
-"---------------------------------------
 " Encoding
 "---------------------------------------
 " Unicode support (taken from http://vim.wikia.com/wiki/Working_with_Unicode)
@@ -500,7 +500,11 @@ Glaive syncopate plugin[commands]
 Glaive syncopate clear_bg
 " Settin-up the browser command to use with SyncopateExportToBrowser
 " defaults to 'sensible-browser'
-Glaive syncopate browser="open"
+if has("macunix")
+  Glaive syncopate browser="open"
+else
+  Glaive syncopate browser="xdg-open"
+endif
 "--------------------------------------------------------------------
 
 "---------------------------------------
@@ -569,7 +573,6 @@ let g:airline#extensions#quickfix#location_text = 'Location'
 let g:tmuxline_preset = {
 \'a'    : '#S',
 \'b'    : '',
-\'c'    : '#(whoami)',
 \'win'  : ['#F#I', '#W'],
 \'cwin' : ['#F#I:#P', '#W'],
 \'y' : ['%a %Y-%b-%d', '%R'],
@@ -684,6 +687,23 @@ nmap <leader>b :CommandTBuffer<CR>
 "--------------------------------------------------------------------
 
 "---------------------------------------
+" vim-preview plugin
+"---------------------------------------
+" This forces vim-preview to use the default browser on linux; it already uses
+" 'open' on Mac.
+if has("unix")
+  let g:PreviewBrowsers = "xdg-open"
+endif
+" Use :Preview command to open in browser!
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" bufexplorer plugin
+"---------------------------------------
+" Buffer Explorer use: <leader>+be/bs/bv/bt
+"--------------------------------------------------------------------
+
+"---------------------------------------
 " Syntastic plugin
 "---------------------------------------
 " Set your compiler executable(defaults to g++, or clang++ if g++ is not found)
@@ -770,6 +790,18 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
+"--------------------------------------------------------------------
+
+"---------------------------------------
+" color_coded plugin (requires lua)
+"---------------------------------------
+if has("lua")
+  " Disable color_coded in diff mode
+  if &diff
+    let g:color_coded_enabled = 0
+  endif
+  let g:color_coded_filetypes = ['c', 'cpp', 'objc']
+endif
 "--------------------------------------------------------------------
 
 "---------------------------------------
