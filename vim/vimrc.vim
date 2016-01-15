@@ -71,6 +71,7 @@ Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-session'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'ktonga/vim-follow-my-lead'
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'jlanzarotta/bufexplorer'
