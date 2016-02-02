@@ -17,6 +17,9 @@ if [ -f ~/access_tokens ]; then
 	source ~/access_tokens
 fi
 
+# add Homebrew sbin directory to path
+export PATH="/usr/local/sbin:$PATH"
+
 # Enable colors for solarized iTerm2
 alias dircolors='gdircolors'
 eval `dircolors ~/.dircolors/dircolors-solarized/dircolors.256dark`
