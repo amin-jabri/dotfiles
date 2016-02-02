@@ -3,8 +3,13 @@
 # Allow alias expansion in non interactive shell (like in vim :cmd)
 shopt -s expand_aliases
 
+unamestr=`uname`
 # ls aliases
-alias ls='ls --color=auto'
+if [ "$unamestr" == 'Darwin' ]; then
+	alias ls='gls --color=auto'
+else
+	alias ls='ls --color=auto'
+fi
 alias l='ls -CF'
 alias ll='ls -lhF'
 alias lla='ls -alhF'

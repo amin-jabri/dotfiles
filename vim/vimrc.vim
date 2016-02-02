@@ -23,7 +23,8 @@ call vundle#begin()
 " original repos on github
 Plugin 'VundleVim/Vundle.vim'
 " Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'bling/vim-airline' " use instead of Lokaltog/powerline
+Plugin 'vim-airline/vim-airline' " use instead of Lokaltog/powerline
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'chrisbra/csv.vim'
 Plugin 'altercation/vim-colors-solarized'
