@@ -8,7 +8,7 @@
 " :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
 "
 set nocompatible " this Vi IMproved not vi (required by Vundle)
-filetype off " required for Vundle to work: turn it back after bundles list
+filetype off " required for Vundle to work: turn it back after Plugins list
 set rtp+=~/.vim/bundle/Vundle.vim " Vundle  runtime path
 
 call vundle#begin()
@@ -794,16 +794,16 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "let g:UltiSnipsEditSplit="vertical"
 "--------------------------------------------------------------------
 
-"---------------------------------------
-" color_coded plugin (requires lua)
-"---------------------------------------
-if has("lua")
-  " Disable color_coded in diff mode
-  if &diff
-    let g:color_coded_enabled = 0
-  endif
-  let g:color_coded_filetypes = ['c', 'cpp', 'objc']
-endif
+" "---------------------------------------
+" " color_coded plugin (requires lua)
+" "---------------------------------------
+" if has("lua")
+"   " Disable color_coded in diff mode
+"   if &diff
+"     let g:color_coded_enabled = 0
+"   endif
+"   let g:color_coded_filetypes = ['c', 'cpp', 'objc']
+" endif
 "--------------------------------------------------------------------
 
 "---------------------------------------
