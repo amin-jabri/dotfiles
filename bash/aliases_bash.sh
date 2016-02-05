@@ -22,7 +22,8 @@ alias fgrep='fgrep --color=auto'
 alias egrep='egrep --color=auto'
 
 # Misc. aliases
-alias vim="vim -u ${HOME}/.vimrc -U NONE -N -X"
+# alias vim="vim -u ${HOME}/.vimrc -U NONE -N -X"
+alias vim="vim -N -X"
 alias vimdiff="vimdiff -u ${HOME}/.vimrc -U NONE -N -X"
 alias g='git'
 alias tmux='tmux -2 -u'
