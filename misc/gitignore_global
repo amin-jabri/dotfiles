@@ -48,6 +48,7 @@ tags
 # Unix misc
 .*
 !.gitignore
+!.clang-format
 *~
 
 # vim
