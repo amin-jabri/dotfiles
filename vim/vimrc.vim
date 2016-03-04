@@ -329,7 +329,7 @@ noremap <leader>sn ]s
 noremap <leader>sp [s
 noremap <leader>sa zg
 noremap <leader>sw zw
-noremap <leader>su z=
+noremap <leader>sg z=
 " Toggle and untoggle spell checking
 noremap <leader>st :setlocal spell! spelllang=en_us<cr>
 " We want our cross-machine spell file to be used
