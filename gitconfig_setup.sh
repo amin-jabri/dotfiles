@@ -72,3 +72,6 @@ git config --global core.excludesfile ~/.gitignore_global
 # This means that if a repo uses "https://github/..." for "origin", we will
 # automatically use SSH. No more password prompts!
 git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
+# Append --submodule option each time we run git diff
+git config --global diff.submodule log
