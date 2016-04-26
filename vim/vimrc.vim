@@ -1,104 +1,105 @@
-"---------------------------------------
-" add Vundle plugin management support
-"---------------------------------------
-" Brief help
-" :PluginList       - lists configured plugins
-" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
-" :PluginSearch foo - searches for foo; append `!` to refresh local cache
-" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
-"
-set nocompatible " this Vi IMproved not vi (required by Vundle)
-filetype off " required for Vundle to work: turn it back after Plugins list
-set rtp+=~/.vim/bundle/Vundle.vim " Vundle  runtime path
+" vimrc based on Valloric's dotfiles, see:
+" https://github.com/Valloric/dotfiles/tree/master/vim
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                preamble                                 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" This Vi IMproved not vi
+set nocompatible
+
+" Needed for vundle, will be turned on after vundle inits
+filetype off
+
+" Setup vundle
+set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-"--------------------------------------------------------------------
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                          Vundle configuration                           "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" These need to come before the configuration options for the plugins since
+" vundle will add the plugin folders to the runtimepath only after it has seen
+" the plugin's Plugin command.
 
-"===================
-" My Vundle Plugin goes here:
-"====================
-" original repos on github
 Plugin 'VundleVim/Vundle.vim'
+" Use the more lightweight vim-airline instead of powerline
 " Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'vim-airline/vim-airline' " use instead of Lokaltog/powerline
+Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'chrisbra/csv.vim'
-Plugin 'altercation/vim-colors-solarized'
+Plugin 'Conque-GDB'
+Plugin 'FuzzyFinder'
+Plugin 'Gundo'
+Plugin 'L9'
+Plugin 'Lokaltog/vim-easymotion'
+Plugin 'MarcWeber/vim-addon-mw-utils'
+Plugin 'Raimondi/delimitMate'
+Plugin 'SirVer/ultisnips'
+Plugin 'Valloric/ListToggle' "Toggle the quickfix and location lists display
+Plugin 'Valloric/MatchTagAlways'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'Valloric/xmledit'
 Plugin 'YankRing.vim'
+Plugin 'aaronbieber/vim-quicktask'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'a.vim'
+" Seems more active than tpope/vim-surround
+Plugin 'anyakichi/vim-surround', {'name': 'anyakichi-vim-surround'}
+Plugin 'chrisbra/csv.vim'
+Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
+Plugin 'edkolev/tmuxline.vim'
+Plugin 'ervandew/supertab'
+Plugin 'jQuery'
+" Plugin 'jeaye/color_coded'
+Plugin 'jelera/vim-javascript-syntax'
+Plugin 'jiangmiao/simple-javascript-indenter'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'jnwhiteh/vim-golang'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'helino/vim-json'
+Plugin 'honza/vim-snippets'
+Plugin 'godlygeek/tabular'
 Plugin 'google/vim-maktaba'
 Plugin 'google/vim-glaive'
 Plugin 'google/vim-codefmtlib'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-syncopate'
-Plugin 'vim-jp/cpp-vim'
-Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'greyblake/vim-preview' " call :Preview to open rendered in browser
+Plugin 'groenewege/vim-less'
+Plugin 'kien/ctrlp.vim'
+Plugin 'ktonga/vim-follow-my-lead'
 Plugin 'majutsushi/tagbar'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'oblitum/rainbow'
+Plugin 'octol/vim-cpp-enhanced-highlight'
+Plugin 'othree/eregex.vim'
+Plugin 'othree/html5-syntax.vim'
+Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'python.vim'
+Plugin 'python_match.vim'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'rdnetto/YCM-Generator'
+Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
-Plugin 'honza/vim-snippets'
-Plugin 'SirVer/ultisnips'
 Plugin 'scrooloose/syntastic'
-Plugin 'Valloric/YouCompleteMe'
-" Plugin 'jeaye/color_coded'
-Plugin 'rdnetto/YCM-Generator'
-Plugin 'ervandew/supertab'
-Plugin 'Raimondi/delimitMate'
-Plugin 'oblitum/rainbow'
-Plugin 'Valloric/ListToggle' "toggling the display of the quickfix list and the location-list
-Plugin 'Valloric/MatchTagAlways'
-Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
+Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tomtom/tlib_vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'Lokaltog/vim-easymotion'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-speeddating'
-Plugin 'tpope/vim-markdown', {'name': 'vim-dev-markdown'}
-Plugin 'plasticboy/vim-markdown'
-Plugin 'xu-cheng/brew.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-dispatch'
-Plugin 'kien/ctrlp.vim'
-Plugin 'aaronbieber/vim-quicktask'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-haml'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-markdown', {'name': 'vim-dev-markdown'}
+Plugin 'tpope/vim-speeddating'
+" Plugin 'tpope/vim-surround'
+Plugin 'vim-jp/cpp-vim'
+Plugin 'wincent/command-t'
+Plugin 'wordlist.vim'
+Plugin 'xu-cheng/brew.vim'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-session'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'ktonga/vim-follow-my-lead'
-Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
-
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'jlanzarotta/bufexplorer'
-
-Plugin 'wincent/command-t'
-
-Plugin 'othree/html5-syntax.vim'
-Plugin 'hail2u/vim-css3-syntax'
-
-" Plugin 'marijnh/tern_for_vim' "requires nodejs, npm. run npm install in folder
-Plugin 'jelera/vim-javascript-syntax'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'jiangmiao/simple-javascript-indenter'
-
-Plugin 'puppetlabs/puppet-syntax-vim'
-Plugin 'groenewege/vim-less'
-Plugin 'jnwhiteh/vim-golang'
-Plugin 'evanmiller/nginx-vim-syntax'
-
-Plugin 'jQuery'
-Plugin 'a.vim'
-Plugin 'Gundo'
-Plugin 'L9'
-Plugin 'FuzzyFinder'
-Plugin 'Conque-GDB'
-Plugin 'wordlist.vim'
 
 " non github repos: Plugin 'git://git.wincent.com/command-t.git'
 " ...
@@ -107,33 +108,46 @@ Plugin 'wordlist.vim'
 "Plugin 'file:///home/gmarik/path/to/plugin'
 " ...
 
-"---------------------------------------
-" Vundle Plugin End
-"---------------------------------------
 call vundle#end()
-filetype plugin indent on "turn on back plugin and indent for filetype: required
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" reset vimrc augroup
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           pre-filetype tweaks                           "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" these are for the xmledit plugin
+let xml_use_xhtml = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           reset vimrc augroup                           "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " We reset the vimrc augroup. Autocommands are added to this group throughout
 " the file
 augroup vimrc
   autocmd!
 augroup END
-"--------------------------------------------------------------------
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                        turn on filetype plugins                         "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Enable detection, plugins and indenting in one step
+" This needs to come AFTER the Plugin commands!
+filetype plugin indent on
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            General settings                             "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Home away from home. We store some config files and snippets here and the
+" whole dotfiles dir is a git repo. Should be the last entry in rtp (for
+" UltiSnips).
 set rtp+=$HOME/dotfiles/vim
 
-" TODO: transfer all our custom mapping to our vim_shortcuts file
+" We want our cross-machine spell file to be used
+set spellfile=$HOME/dotfiles/vim/spell/en.utf-8.add
 
-"---------------------------------------
-" change the mapleader from \ to ,
-"---------------------------------------
-let mapleader=","
-let maplocalleader="-"
-"--------------------------------------------------------------------
+" TODO: transfer all our custom mapping to our vim_shortcuts file
 
 " with this, we can now type ",." to exit out of insert mode
 " if we really wanted to type ",.", then just type one char, wait half a sec,
@@ -180,6 +194,10 @@ set fillchars+=stl:\ ,stlnc:\
 set noshowmode " Hide the default mode text below status line
 set showtabline=2 " Always show the tabline even if we have only one tab"
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           More involved tweaks                          "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Highlight Class and Function names
 function! s:HighlightFunctionsAndClasses()
   syn match cCustomFunc      "\w\+\s*\((\)\@="
@@ -188,9 +206,25 @@ function! s:HighlightFunctionsAndClasses()
   hi def link cCustomFunc      Function
   hi def link cCustomClass     Function
 endfunction
+
 au vimrc Syntax * call s:HighlightFunctionsAndClasses()
 
 set undofile " stores undo state even when files are closed (in undodir)
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            custom mappings                              "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" our <leader> will be the space key
+let mapleader=","
+
+" our <localleader> will be the '-' key
+let maplocalleader="-"
+
+" this makes vim's regex engine "not stupid"
+" see :h magic
+nnoremap / /\v
+vnoremap / /\v
 
 " This changes the default display of tab and CR chars in list mode
 set listchars=tab:▸\ ,eol:¬
@@ -201,11 +235,6 @@ nnoremap <silent> <Leader>lt :set list!<CR>
 set dir=~/tmp,/var/tmp,/tmp,$TEMP
 set undodir=~/tmp,/var/tmp,/tmp,$TEMP
 
-" this makes vim's regex engine "not stupid"
-" see :h magic
-nnoremap / /\v
-vnoremap / /\v
-
 if v:version >= 704
   " The new Vim regex engine is currently slooooow as hell which makes syntax
   " highlighting slow, which introduces typing latency.
@@ -214,21 +243,21 @@ if v:version >= 704
   set regexpengine=1
 endif
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " prevents vim from continuing the comment automatically  on the next line
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "set formatoptions-=r formatoptions-=o
 autocmd FileType * setlocal formatoptions-=r formatoptions-=o
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " paste mode from clipboard without extra spaces
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "use ':set paste'  to enable copying from clipboard without extra spaces
 "use ':set nopaste' to switch it back off
 " Toggle paste mode
 set pastetoggle=<F2>
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has('unnamedplus')
   " By default, Vim will not use the system clipboard when yanking/pasting to
@@ -245,9 +274,9 @@ else
   set clipboard+=unnamed
 endif
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " useful re-mappings
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " shortcut for Ctrl-V<tab> keystroke sequence, to insert real tab
 inoremap <S-Tab> <C-V><Tab>
 
@@ -305,17 +334,17 @@ nnoremap g, g,zz
 "as we  expect them to.
 nnoremap j gj
 nnoremap k gk
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vim shell initialization: expand_aliases
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let $BASH_ENV="~/.aliases_bash.sh"
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " enable spell checker
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " setlocal spell spelllang=en_us
 " spelling shortcuts using <leader>
 " ]s next misspelled word
@@ -332,94 +361,89 @@ noremap <leader>sw zw
 noremap <leader>sg z=
 " Toggle and untoggle spell checking
 noremap <leader>st :setlocal spell! spelllang=en_us<cr>
-" We want our cross-machine spell file to be used
-set spellfile=$HOME/dotfiles/vim/spell/en.utf-8.add
-"--------------------------------------------------------------------
 
-"---------------------------------------
+" list of abbreviation used to correct some frequent misspell
+if filereadable($HOME . "/dotfiles/vim/frequently-misspelled-wordlist.vim")
+  so $HOME/dotfiles/vim/frequently-misspelled-wordlist.vim
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " use the search highlight
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set hlsearch    " highlight previously searched-for phrases
 set incsearch     " show search matches as I type the search string"
 set gdefault " this makes search/replace global by default
 " disable highlight when pressing <leader>/
 nmap <silent> <leader>/ :nohlsearch<CR>
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Error highlight line charcters exceeding virtual 80 character
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "match ErrorMsg '\%>80v.\+'
 " Error highlight 81 line charcters only (this is less visually aggressive than
 " previous)
 match ErrorMsg '\%81v.'
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " disable backup and swap file
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nobackup
 set noswapfile
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" In diff mode disregard white spaces
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set diffopt+=iwhite
+set diffexpr=""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " remove trailing whitespace and empty lines
-"---------------------------------------
-"remove trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 " remove empty lines when saving
 au BufWritePre *.* :silent! %s#\($\n\s*\)\+\%$##
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" In diff mode disregard white spaces
-"---------------------------------------
-set diffopt+=iwhite
-set diffexpr=""
-"--------------------------------------------------------------------
-
-"---------------------------------------
 " Automatically delete trailing whitespaces and Dos-returns
-"---------------------------------------
 augroup vimrc
   " Automatically delete trailing DOS-returns and whitespace on file open and
   " write.
   autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
 augroup END
-"--------------------------------------------------------------------
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Arrow keys remapping
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " disabling arrows left and right
 map <left> <nop>
 map <right> <nop>
 " remapping up and down arrows to move current line up or down
 map <up> ddkP
 map <down> ddp
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " split window easy navigation
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " popup menu and popup menu select colors
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "highlight Pmenu ctermfg=<color> ctermbg=<color>
 "highlight PmenuSel ctermfg=<color> ctermbg=<color>
 highlight Pmenu ctermfg=Black ctermbg=White gui=bold
 highlight PmenuSel ctermfg=White ctermbg=DarkGray gui=bold
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " enable code folding
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set foldmethod=syntax
 " fold level to start with
 set foldlevelstart=2
@@ -440,11 +464,11 @@ function! FoldColumnToggle()
 endfunction
 " toggle show folding Column
 nnoremap <silent> <leader>F :call FoldColumnToggle()<cr>
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Encoding
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Unicode support (taken from http://vim.wikia.com/wiki/Working_with_Unicode)
 if has("multi_byte")
   if &termencoding == ""
@@ -454,45 +478,60 @@ if has("multi_byte")
   setglobal fileencoding=utf-8
   set fileencodings=ucs-bom,utf-8,latin1
 endif
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " map <F9> to :make
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "nnoremap <F9> :Make<CR><bar><Esc>:cw<CR>
 nnoremap <F9> :Make<CR>
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " astyle tool use from vim
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Autoformat plugin key mapping
 "noremap <F3> :Autoformat<CR><CR>
 "let g:formatprg_cs = "astyle"
 " using astyle directly instead of Autoformat
 " formatting style is in ~/.astylerc
 nnoremap <F3> :%!astyle<CR><CR>
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
-" Google Glaive
-"---------------------------------------
+" Clear the screen after existing  Vim
+au VimLeave * :!clear
+
+" read file in a different encoding: shift-jis for instance
+"vim -c "e ++enc=shift-jis"  file
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                       ***  HERE BE PLUGINS  ***                         "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                              vim-glaive                                 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 call glaive#Install()
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" Google CodeFmt requires Glaive
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-codefmt                                 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Requires vim-glaive
 " use :FormatCode and :[range] FormatLine
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 Glaive codefmt plugin[mappings]
-"--------------------------------------------------------------------
 
-"---------------------------------------
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Syncopate                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Google Syncopate requires Glaive
-"---------------------------------------
 " for sharing beautiful code
 " :SyncopateExportToClipboard (xclip is required)
 " :SyncopateExportToBrowser
@@ -514,43 +553,42 @@ if has("macunix")
 else
   Glaive syncopate browser="xdg-open"
 endif
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" ListToggle
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             ListToggle                                    "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " error list window
 let g:lt_location_list_toggle_map = '<leader>l'
 " Quickfix window
 let g:lt_quickfix_list_toggle_map = '<leader>q'
 " spawned window height
 let g:lt_height = 10
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" delimitMate plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             delimitMate                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "Enable delimitMate mappings. :DelimitMateOn
 "Disable delimitMate mappings. :DelimitMateOff
 "Switches the plug-in on and off. :DelimitMateSwitch
-
 let delimitMate_autoclose = 1
 let delimitMate_jump_expansion = 1
 let delimitMate_matchpairs = "(:),[:],{:},<:>"
 let delimitMate_quotes = "\" ' ` *"
 au FileType html let b:delimitMate_quotes = "\" '"
-"--------------------------------------------------------------------
 
-" "---------------------------------------
-" " powerline plugin
-" "---------------------------------------
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" "                             powerline                                     "
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " " powerline: when statusline is hidden or or appear only in split window
 " let g:Powerline_symbols = "unicode" "fancy | unicode?
-" "--------------------------------------------------------------------
 
-"---------------------------------------
-" vim-airline plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-airline                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Populate the g:airline_symbols dictionary with the powerline symbols
 let g:airline_powerline_fonts = 1
 " Automatically displays all buffers when there's only one tab open
@@ -566,18 +604,18 @@ let g:airline#extensions#syntastic#enabled = 1
 " configure the title text for quickfix and location list buffers
 let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
 let g:airline#extensions#quickfix#location_text = 'Location'
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" tmuxline plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             tmuxline                                      "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Change theme with command (need vim running inside tmux)
 ":Tmuxline [theme] [preset]
 " Persist generated theme with :TmuxlineSnapshot [file]
 " and source [file] in .tmux.conf
-
 " set preset: full, tmux, nightly_fox, crosshair, minimal, powerline, righteous
-"  other presets available in autoload/tmuxline/presets/*
+" other presets available in autoload/tmuxline/presets/*
+
 " let g:tmuxline_preset = 'powerline'
 let g:tmuxline_preset = {
 \'a'    : '#S',
@@ -602,14 +640,13 @@ endif
 " theme to use if airline-vim theme disabled in tmuxline: nightly_fox, zenburn
 " jellybeans, iceberg, airline, powerline, vim_powerline, vim_statusline_[1~3]
 let g:tmuxline_theme = 'powerline'
-
 " create a snapshot file of the last set statusline
 " tmuxline#api#snapshot('~/.tmuxline_snapshot.conf')
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" Session plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-session                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " you also need to run :SaveSession once to create the default.vim session that
 " will then be autoloaded/saved from then on
 " Available <Action>:  save, open, close, delete, Tab<Action>, view
@@ -618,41 +655,42 @@ let g:session_autoload        = 'no'
 let g:session_autosave        = 'yes'
 let g:session_default_to_last = 'yes'
 let g:session_directory       = '~/tmp/vim/sessions'
-let g:session_command_aliases = 1 " use Session<Action> alias for <Action>Session
+" use Session<Action> alias for <Action>Session
+let g:session_command_aliases = 1
 nnoremap <leader>So :OpenSession
 nnoremap <leader>Ss :SaveSession
 nnoremap <leader>Sd :DeleteSession<CR>
 nnoremap <leader>Sc :CloseSession<CR>
 nnoremap <leader>Sv :ViewSession<CR>
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" YankRing Plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             YankRing                                      "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:yankring_history_dir = '$HOME/tmp/vim'
 " this is so that single char deletes don't end up in the yankring
 let g:yankring_min_element_length = 2
 let g:yankring_window_height = 14
-nnoremap <leader>R :YRShow<CR>
 
+nnoremap <leader>R :YRShow<CR>
 " this makes Y yank from the cursor to the end of the line, which makes more
 " sense than the default of yanking the whole current line (we can use yy for
 " that)
 function! YRRunAfterMaps()
     nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
 endfunction
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" Plugin vim-git
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-git                                       "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Turn on spell checking by default for git commit messages
 au vimrc FileType gitcommit setlocal spell! spelllang=en_us
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" Solarized theme
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-colors-solarized                          "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " enable solarized theme colors
 syntax enable
 let g:solarized_termtrans = 0
@@ -662,59 +700,61 @@ let g:solarized_visibility="low"
 setlocal background=light "light | dark"
 colorscheme solarized
 call togglebg#map("<F5>")
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" vim-notes settings
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-notes                                     "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:notes_directories = ['~/Notes']
 let g:notes_suffix = '.txt'
-"--------------------------------------------------------------------
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Gundo                                         "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Gundo plugin key mapping
-"---------------------------------------
 nnoremap <F4> :GundoToggle<CR>
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" TComment plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             TComment                                      "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 "Toggle comments
 nmap <leader>tc :TComment<CR>
 vmap <leader>tc :TComment<CR>
 "Toggle comments as a block
 nmap <leader>tb :TCommentBlock<CR>
 vmap <leader>tb :TCommentBlock<CR>
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" CommandT
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             CommandT                                      "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 nmap <leader>e :CommandT<CR>
 nmap <leader>b :CommandTBuffer<CR>
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" vim-preview plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-preview                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use :Preview command to open in browser!
+
 " This forces vim-preview to use the default browser on linux; it already uses
 " 'open' on Mac.
 if has("unix")
   let g:PreviewBrowsers = "xdg-open"
 endif
-" Use :Preview command to open in browser!
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" bufexplorer plugin
-"---------------------------------------
-" Buffer Explorer use: <leader>+be/bs/bv/bt
-"--------------------------------------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             bufexplorer                                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"---------------------------------------
-" Syntastic plugin
-"---------------------------------------
+" Buffer Explorer uses mappings: <leader>+be/bs/bv/bt
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Syntastic                                     "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Set your compiler executable(defaults to g++, or clang++ if g++ is not found)
 let g:syntastic_cpp_compiler = 'g++'
 let g:syntastic_cpp_checkers = ['gcc','clang_check','clang_tidy']
@@ -739,11 +779,11 @@ let g:syntastic_mode_map = {
        \ "mode": "active",
        \ "active_filetypes": [],
        \ "passive_filetypes": ["html"] }
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" YouCompleteMe (YCM) Plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             YouCompleteMe                                 "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Enable or disable YCM as syntax checker. Can't use other checker in Syntastic
 " so either use syntastic with gcc or cpplint or instead use YCM
 let g:ycm_register_as_syntastic_checker = 1 "1|0
@@ -783,11 +823,11 @@ nnoremap <leader>y :YcmForceCompileAndDiagnostics<cr>
 nnoremap <leader>yg :YcmCompleter GoTo<CR>
 nnoremap <leader>yD :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>yd :YcmCompleter GoToDeclaration<CR>
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" UltiSnips plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             UltiSnips                                     "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Trigger configuration.
 " Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -799,11 +839,12 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
-"--------------------------------------------------------------------
 
-" "---------------------------------------
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" "                             color_coded                                   "
+" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
 " " color_coded plugin (requires lua)
-" "---------------------------------------
 " if has("lua")
 "   " Disable color_coded in diff mode
 "   if &diff
@@ -811,18 +852,18 @@ let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "   endif
 "   let g:color_coded_filetypes = ['c', 'cpp', 'objc']
 " endif
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" supertab plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             supertab                                      "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:SuperTabClosePreviewOnPopupClose = 1
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" vim-indent-guide plugin key mapping
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-indent-guide                              "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 :nmap <silent> <Leader>ig <Plug>IndentGuidesToggle
 :nmap <silent> <Leader>ie <Plug>IndentGuidesEnable
 :nmap <silent> <Leader>id <Plug>IndentGuidesDisable
@@ -830,35 +871,24 @@ let g:indent_guides_exclude_filetypes = ['help', 'nerdtree']
 let g:indent_guides_enable_on_vim_startup = 0
 let g:indent_guides_color_change_percent = 7
 let g:indent_guides_guide_size = 2
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" vim-javascript-syntax plugin
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             vim-javascript-syntax                         "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 au FileType javascript call JavaScriptFold()
-"--------------------------------------------------------------------
 
-"---------------------------------------
-" Javascript libraries syntax plugin"
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Javascript-libraries-syntax                   "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:used_javascript_libs = 'jquery,angularjs, angularui'
-"--------------------------------------------------------------------
 
-"---------------------------------------
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Rainbow                                       "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Rainbow Parentheses Improved (better than Rainbow Parenthesis)
-"---------------------------------------
+
+" let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
+" let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 let g:rainbow_active = 1
-"let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
-"let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
-"--------------------------------------------------------------------
-
-" list of abbreviation used to correct some frequent misspell
-if filereadable($HOME . "/dotfiles/vim/frequently-misspelled-wordlist.vim")
-  so $HOME/dotfiles/vim/frequently-misspelled-wordlist.vim
-endif
-
-" Clear the screen after existing  Vim
-au VimLeave * :!clear
-
-" read file in a different encoding: shift-jis for instance
-"vim -c "e ++enc=shift-jis"  file
