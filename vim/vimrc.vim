@@ -144,96 +144,155 @@ filetype plugin indent on
 " UltiSnips).
 set rtp+=$HOME/dotfiles/vim
 
+" vim shell initialization: expand_aliases
+let $BASH_ENV="~/.aliases_bash.sh"
+
 " We want our cross-machine spell file to be used
 set spellfile=$HOME/dotfiles/vim/spell/en.utf-8.add
 
 " TODO: transfer all our custom mapping to our vim_shortcuts file
 
-" with this, we can now type ",." to exit out of insert mode
-" if we really wanted to type ",.", then just type one char, wait half a sec,
-" type another
-inoremap ,. <Esc>
-vnoremap ,. <Esc>
+" DISPLAY SETTINGS
+set showmatch           " show matching bracket (briefly jump) brackets/braces/parantheses
+set showcmd             " show typed command in status bar
+set ruler               " show cursor position in status bar
+set title               " show file in titlebar
+set undofile            " stores undo state even when files are closed (in undodir)
+set cursorline          " highlights the current line
 
-set autoread        " automatically update file when edited outside of Vim
-
-syntax on           " use syntax coloring
-set ruler           " set ruler: show line and column number
-set hidden          " abandoned buffers become hidden
-set title           " set window title to filename
-set textwidth=80    " text width is 80 columns
-
-set visualbell      " Silence the bell, use a flash instead
-set noerrorbells    " don't beep
-set cursorline      " Dislay a line under the current cursor line
-set number          " Display line numbers, use set nonumber to disable
-set showcmd         " Show (partial) command in status line.
-
-set ignorecase      " case insensitive searching
-set smartcase       " but become case sensitive if you type uppercase characters
-
-set showmatch       " Show matching brackets/braces/parantheses.
-set autoindent      " set autoindent
-set copyindent      " copy the previous indentation on autoindenting
-set smarttab        " smart tab handling for indenting
-set shiftwidth=2    " set shiftwidth to 2 spaces
-set tabstop=2       " set tab to 2 spaces
-set softtabstop=2   " makes the spaces feel like real tabs
-set shiftround " makes indenting a multiple of shiftwidth
-set expandtab       " replace Tabs with white spaces, unless using Ctrl-V<tab>
-" modifiers private, public and protected indented +1 space and lineup +1space
-"set cinoptions=+g1,+h1
-
-" highlight column textwidth+1, ...
-"set colorcolumn=+1,+2,+3,+4,+5,+6,+7,+8,+9,+10
-set colorcolumn=0
-
-set laststatus=2
-set t_Co=256
-set fillchars+=stl:\ ,stlnc:\
-set noshowmode " Hide the default mode text below status line
-set showtabline=2 " Always show the tabline even if we have only one tab"
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                           More involved tweaks                          "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Highlight Class and Function names
-function! s:HighlightFunctionsAndClasses()
-  syn match cCustomFunc      "\w\+\s*\((\)\@="
-  syn match cCustomClass     "\w\+\s*\(::\)\@="
-
-  hi def link cCustomFunc      Function
-  hi def link cCustomClass     Function
-endfunction
-
-au vimrc Syntax * call s:HighlightFunctionsAndClasses()
-
-set undofile " stores undo state even when files are closed (in undodir)
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                            custom mappings                              "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" our <leader> will be the space key
-let mapleader=","
-
-" our <localleader> will be the '-' key
-let maplocalleader="-"
-
-" this makes vim's regex engine "not stupid"
-" see :h magic
-nnoremap / /\v
-vnoremap / /\v
-
+" When you type the first tab, it will complete as much as possible, the second
+" tab hit will provide a list, the third and subsequent tabs will cycle through
+" completion options so you can complete the file without further keys
+set wildmode=longest,list,full
+set wildmenu            " completion with menu
 " This changes the default display of tab and CR chars in list mode
 set listchars=tab:▸\ ,eol:¬
-set nolist
-nnoremap <silent> <Leader>lt :set list!<CR>
+set nolist              " Disable list mode by default
+" Characters to fill the statuslines and vertical separators
+set fillchars+=stl:\ ,stlnc:\
+
+" The "longest" option makes completion insert the longest prefix of all
+" the possible matches; see :h completeopt
+set completeopt=menu,menuone,longest
+"set switchbuf=useopen,usetab
+
+" popup menu and popup menu select colors
+" highlight Pmenu ctermfg=<color> ctermbg=<color>
+" highlight PmenuSel ctermfg=<color> ctermbg=<color>
+highlight Pmenu ctermfg=Black ctermbg=White gui=bold
+highlight PmenuSel ctermfg=White ctermbg=DarkGray gui=bold
+
+" EDITOR SETTINGS
+set ignorecase          " case insensitive searching
+set smartcase           " but become case sensitive if you type uppercase characters
+set autoindent          " on new lines, match indent of previous line
+set copyindent          " copy the previous indentation on autoindenting
+" modifiers private, public and protected indented +1 space and lineup +1space
+"set cino=+g1,+h1
+set smarttab            " smart tab handling for indenting
+set magic               " change the way backslashes are used in search patterns
+set bs=indent,eol,start " Allow backspacing over everything in insert mode
+set nobackup            " no backup~ files.
+set noswapfile          " disable swap file
+
+set tabstop=2           " number of spaces a tab counts for
+set shiftwidth=2        " spaces for autoindents
+set softtabstop=2       " makes the spaces feel like real tabs
+set shiftround          " makes indenting a multiple of shiftwidth
+set expandtab           " turn a tab into spaces, unless using Ctrl-V<tab>
+set laststatus=2        " the statusline is now always shown
+set noshowmode          " don't show the mode ("-- INSERT --") at the bottom
+set number              " Display line numbers, use set nonumber to disable
+
+" misc settings
+set fileformat=unix     " file mode is unix
+set fileformats=unix,mac,dos   " detects unix, dos, mac file formats in that order
+
+set hidden              " allows making buffers hidden even with unsaved changes
+set history=1000        " remember more commands and search history
+set undolevels=1000     " use many levels of undo
+set autoread            " auto read when a file is changed from the outside
+set foldmethod=syntax   " enable code folding
+set foldlevelstart=2
+setlocal foldcolumn=4   " the number of columns to use for folding display at the left
+" helper function to toggle show folding Column
+function! FoldColumnToggle()
+  if &foldcolumn
+    setlocal foldcolumn=0
+  else
+    setlocal foldcolumn=4
+  endif
+endfunction
+
+" toggles vim's paste mode; when we want to paste something into vim from a
+" different application, turning on paste mode prevents the insertion of extra
+" whitespace
+set pastetoggle=<F2>
+
+" With this, the gui (gvim and macvim) now doesn't have the toolbar, the left
+" and right scrollbars and the menu.
+set guioptions-=T
+set guioptions-=l
+set guioptions-=L
+set guioptions-=r
+set guioptions-=R
+set guioptions-=m
+set guioptions-=M
+
+set showtabline=2       " Always show the tabline even if we have only one tab"
+
+" this makes sure that shell scripts are highlighted
+" as bash scripts and not sh scripts
+let g:is_posix = 1
+
+" tries to avoid those annoying "hit enter to continue" messages
+" if it still doesn't help with certain commands, add a second <cr>
+" at the end of the map command
+set shortmess=a
 
 " this solves the "unable to open swap file" errors on Win7
 set dir=~/tmp,/var/tmp,/tmp,$TEMP
 set undodir=~/tmp,/var/tmp,/tmp,$TEMP
+
+" Look for tag def in a "tags" file in the dir of the current file, then for
+" that same file in every folder above the folder of the current file, until the
+" root.
+set tags=./tags;/
+
+set visualbell          " Silence the bell, use a flash instead
+set noerrorbells        " don't beep
+
+set t_Co=256
+syntax on               " use syntax coloring
+
+" none of these should be word dividers, so make them not be
+set iskeyword+=_,$,@,%,#,*
+
+" Number of screen lines to use for the command-line
+set cmdheight=1
+
+" allow backspace and cursor keys to cross line boundaries
+set whichwrap+=<,>,h,l
+set hlsearch            " highlight searched-for phrases
+set incsearch           " show search matches as I type the search string"
+set gdefault            " this makes search/replace global by default
+
+" enforces a specified line-length and auto inserts hard line breaks when we
+" reach the limit; in Normal mode, you can reformat the current paragraph with
+" gqap.
+set textwidth=80
+
+" highlight column textwidth+1, ...
+" set colorcolumn=+1,+2,+3,+4,+5,+6,+7,+8,+9,+10
+
+" disable column highlight for textwidth+1, ... Use error Highlight instead.
+set colorcolumn=0
+match ErrorMsg '\%81v.' " Error highlight 81 column character only
+" match ErrorMsg '\%>80v.\+' " Error highlight characters exceeding virtual 80 character
+
+" In diff mode disregard white spaces
+set diffopt+=iwhite
+set diffexpr=""
 
 if v:version >= 704
   " The new Vim regex engine is currently slooooow as hell which makes syntax
@@ -242,22 +301,6 @@ if v:version >= 704
   " faster.
   set regexpengine=1
 endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" prevents vim from continuing the comment automatically  on the next line
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set formatoptions-=r formatoptions-=o
-autocmd FileType * setlocal formatoptions-=r formatoptions-=o
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" paste mode from clipboard without extra spaces
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"use ':set paste'  to enable copying from clipboard without extra spaces
-"use ':set nopaste' to switch it back off
-" Toggle paste mode
-set pastetoggle=<F2>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 if has('unnamedplus')
   " By default, Vim will not use the system clipboard when yanking/pasting to
@@ -274,11 +317,30 @@ else
   set clipboard+=unnamed
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" useful re-mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" shortcut for Ctrl-V<tab> keystroke sequence, to insert real tab
-inoremap <S-Tab> <C-V><Tab>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                           More involved tweaks                          "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Unicode support (taken from http://vim.wikia.com/wiki/Working_with_Unicode)
+if has("multi_byte")
+  if &termencoding == ""
+    let &termencoding = &encoding
+  endif
+  set encoding=utf-8
+  setglobal fileencoding=utf-8
+  set fileencodings=ucs-bom,utf-8,latin1
+endif
+
+" remove trailing whitespace and empty lines
+autocmd BufWritePre * :%s/\s\+$//e
+" remove empty lines when saving
+au BufWritePre *.* :silent! %s#\($\n\s*\)\+\%$##
+
+augroup vimrc
+  " Automatically delete trailing DOS-returns and whitespace on file open and
+  " write.
+  autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
+augroup END
 
 " Sometimes, $MYVIMRC does not get set even though the vimrc is sourced
 " properly. So far, I've only seen this on Linux machines on rare occasions.
@@ -286,36 +348,101 @@ if has("unix") && strlen($MYVIMRC) < 1
   let $MYVIMRC=$HOME . '/.vimrc'
 endif
 
-" Quickly edit/reload the vimrc file
-nmap <silent> <leader>ev :e $MYVIMRC<CR>
-nmap <silent> <leader>sv :so $MYVIMRC<CR>
+" Highlight Class and Function names
+function! s:HighlightFunctionsAndClasses()
+  syn match cCustomFunc      "\w\+\s*\((\)\@="
+  syn match cCustomClass     "\w\+\s*\(::\)\@="
+
+  hi def link cCustomFunc      Function
+  hi def link cCustomClass     Function
+endfunction
+
+" TODO: this should:
+" a) not be called for every filetype
+" b) be in a separate plugin
+au vimrc Syntax * call s:HighlightFunctionsAndClasses()
+
+"Basically you press * or # to search for the current selection
+vnoremap <silent> * :call VisualSearch('f')<CR>
+vnoremap <silent> # :call VisualSearch('b')<CR>
+vnoremap <silent> gv :call VisualSearch('gv')<CR>
+
+" cindent is a bit too smart for its own good and triggers in text files when
+" you're typing inside parens and then hit enter; it aligns the text with the
+" opening paren and we do NOT want this in text files!
+autocmd vimrc FileType text,markdown,gitcommit set nocindent
+
+autocmd vimrc FileType markdown setlocal spell! spelllang=en_us
+
+" prevents vim from continuing the comment automatically  on the next line
+"set formatoptions-=r formatoptions-=o
+autocmd FileType * setlocal formatoptions-=r formatoptions-=o
+
+" save folds and load them when starting
+"au BufWinLeave ?* mkview
+autocmd BufWinLeave * if expand("%") != "" | mkview | endif
+"au BufWinEnter ?* silent loadview
+autocmd BufWinEnter * if expand("%") != "" | silent loadview | endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                            custom mappings                              "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" our <leader> will be the space key
+let mapleader=","
+
+" our <localleader> will be the '-' key
+let maplocalleader="-"
+
+" Toggle list mode
+nnoremap <silent> <Leader>lt :set list!<CR>
+
+" Disable highlight when pressing <leader>/
+nmap <silent> <leader>/ :nohlsearch<CR>
+
 " toggle highlighting on and off by pressing one key: H
 nnoremap <silent> <Leader>H :set cursorline! cursorcolumn!<CR>
+
 " toggle numberline on and off by pressing one key: N
 nnoremap <silent> <Leader>N :set number!<CR>
+
+" toggle fold column show
+nnoremap <silent> <leader>F :call FoldColumnToggle()<cr>
+
+" shortcut for Ctrl-V<tab> keystroke sequence, to insert real tab
+inoremap <S-Tab> <C-V><Tab>
+
+" map <F9> to :make
+"nnoremap <F9> :Make<CR><bar><Esc>:cw<CR>
+nnoremap <F9> :Make<CR>
+
+" this makes vim's regex engine "not stupid"
+" see :h magic
+nnoremap / /\v
+vnoremap / /\v
+
+" Fast saving
+nnoremap <leader>w :w!<cr>
+
+" Quickly edit/reload the vimrc file
+" <leader>ev brings up .vimrc
+noremap <silent> <leader>ev :e! $MYVIMRC<CR>
+" <leader>sv reloads it and makes all changes active (file has to be saved first)
+noremap <silent> <leader>sv :so $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
+" with this, we can now type ",." to exit out of insert mode
+" if we really wanted to type ",.", then just type one char, wait half a sec,
+" type another
+inoremap ,. <Esc>
+vnoremap ,. <Esc>
 
 " This command will allow us to save a file we don't have permission to save
 " *after* we have already opened it. Super useful.
 cnoremap w!! w !sudo tee % >/dev/null
 
-" Fast saving
-nnoremap <leader>w :w!<cr>
-
-" this makes sure that shell scripts are highlighted
-" as bash scripts and not sh scripts
-let g:is_posix = 1
-
-" tries to avoid those annoying "hit enter to continue" messages
-" if it still doesn't help with certain commands, add a second <cr>
-" at the end of the map command
-set shortmess=a
-
 " These create newlines like o and O but stay in normal mode
 nnoremap <silent> zj o<Esc>k
 nnoremap <silent> zk O<Esc>j
-
-" none of these should be word dividers, so make them not be
-set iskeyword+=_,$,@,%,#,*
 
 " Keep search matches in the middle of the window.
 " zz centers the screen on the cursor, zv unfolds any fold if the cursor
@@ -329,23 +456,44 @@ nnoremap N Nzzzv
 nnoremap g; g;zz
 nnoremap g, g,zz
 
-" This makes j and k work on "screen lines" instead of on "file lines"; now,
-" when we have a long line that wraps to multiple screen lines, j and k behave
-"as we  expect them to.
+" This makes j and k work on "screen lines" instead of on "file lines"; now, when
+" we have a long line that wraps to multiple screen lines, j and k behave as we
+" expect them to.
 nnoremap j gj
 nnoremap k gk
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" vim shell initialization: expand_aliases
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let $BASH_ENV="~/.aliases_bash.sh"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Q for formatting the current paragraph (or visual selection)
+vnoremap Q gq
+nnoremap Q gqap
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" enable spell checker
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" setlocal spell spelllang=en_us
+" This is quit all
+noremap <Leader>Q :qa<cr>
+
+" key bindings for quickly moving between windows
+" h left, l right, k up, j down
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Disabling arrows left and right
+map <left> <nop>
+map <right> <nop>
+
+" Remap up and down arrows to move current line up or down
+map <up> ddkP
+map <down> ddp
+
+" Switches to the previous buffer that was shown in the current window, but also
+" closes the current buffer before switching to the previous one
+noremap <leader>bq <c-^> :bd #<cr>
+
+" Switch to the directory of the open buffer
+noremap <leader>cd :cd %:p:h<cr>
+
+" Toggle and untoggle spell checking
+noremap <leader>st :setlocal spell! spelllang=en_us<cr>
+
 " spelling shortcuts using <leader>
 " ]s next misspelled word
 " [s previous misspelled word
@@ -353,156 +501,22 @@ let $BASH_ENV="~/.aliases_bash.sh"
 " zw like zg but mark the word as a wrong (bad) word
 " z= get suggestions
 " zug/zuw undo zw and zg, remove the word from the dic
-
 noremap <leader>sn ]s
 noremap <leader>sp [s
 noremap <leader>sa zg
 noremap <leader>sw zw
 noremap <leader>sg z=
-" Toggle and untoggle spell checking
-noremap <leader>st :setlocal spell! spelllang=en_us<cr>
 
 " list of abbreviation used to correct some frequent misspell
 if filereadable($HOME . "/dotfiles/vim/frequently-misspelled-wordlist.vim")
   so $HOME/dotfiles/vim/frequently-misspelled-wordlist.vim
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" use the search highlight
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set hlsearch    " highlight previously searched-for phrases
-set incsearch     " show search matches as I type the search string"
-set gdefault " this makes search/replace global by default
-" disable highlight when pressing <leader>/
-nmap <silent> <leader>/ :nohlsearch<CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Error highlight line charcters exceeding virtual 80 character
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"match ErrorMsg '\%>80v.\+'
-" Error highlight 81 line charcters only (this is less visually aggressive than
-" previous)
-match ErrorMsg '\%81v.'
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" disable backup and swap file
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nobackup
-set noswapfile
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" In diff mode disregard white spaces
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set diffopt+=iwhite
-set diffexpr=""
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" remove trailing whitespace and empty lines
-autocmd BufWritePre * :%s/\s\+$//e
-" remove empty lines when saving
-au BufWritePre *.* :silent! %s#\($\n\s*\)\+\%$##
-
-" Automatically delete trailing whitespaces and Dos-returns
-augroup vimrc
-  " Automatically delete trailing DOS-returns and whitespace on file open and
-  " write.
-  autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
-augroup END
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Arrow keys remapping
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" disabling arrows left and right
-map <left> <nop>
-map <right> <nop>
-" remapping up and down arrows to move current line up or down
-map <up> ddkP
-map <down> ddp
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" split window easy navigation
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" popup menu and popup menu select colors
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"highlight Pmenu ctermfg=<color> ctermbg=<color>
-"highlight PmenuSel ctermfg=<color> ctermbg=<color>
-highlight Pmenu ctermfg=Black ctermbg=White gui=bold
-highlight PmenuSel ctermfg=White ctermbg=DarkGray gui=bold
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" enable code folding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set foldmethod=syntax
-" fold level to start with
-set foldlevelstart=2
-" the number of columns to use for folding display at the left
-setlocal foldcolumn=4
-" save folds and load them when starting
-"au BufWinLeave ?* mkview
-autocmd BufWinLeave * if expand("%") != "" | mkview | endif
-"au BufWinEnter ?* silent loadview
-autocmd BufWinEnter * if expand("%") != "" | silent loadview | endif
-" helper function
-function! FoldColumnToggle()
-  if &foldcolumn
-    setlocal foldcolumn=0
-  else
-    setlocal foldcolumn=4
-  endif
-endfunction
-" toggle show folding Column
-nnoremap <silent> <leader>F :call FoldColumnToggle()<cr>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Encoding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Unicode support (taken from http://vim.wikia.com/wiki/Working_with_Unicode)
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" map <F9> to :make
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"nnoremap <F9> :Make<CR><bar><Esc>:cw<CR>
-nnoremap <F9> :Make<CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" astyle tool use from vim
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Autoformat plugin key mapping
-"noremap <F3> :Autoformat<CR><CR>
-"let g:formatprg_cs = "astyle"
-" using astyle directly instead of Autoformat
-" formatting style is in ~/.astylerc
-nnoremap <F3> :%!astyle<CR><CR>
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Clear the screen after existing  Vim
-au VimLeave * :!clear
-
-" read file in a different encoding: shift-jis for instance
-"vim -c "e ++enc=shift-jis"  file
+" Using '<' and '>' in visual mode to shift code by a tab-width left/right by
+" default exits visual mode. With this mapping we remain in visual mode after
+" such an operation.
+vnoremap < <gv
+vnoremap > >gv
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -601,6 +615,10 @@ let g:airline#extensions#tmuxline#enabled = 0
 let airline#extensions#tmuxline#color_template = 'normal'
 " enable/disable syntastic integration
 let g:airline#extensions#syntastic#enabled = 1
+" enable/disable YouCompleteMe integration
+let g:airline#extensions#ycm#enabled = 1
+let g:airline#extensions#ycm#error_symbol = '✗:'
+let g:airline#extensions#ycm#warning_symbol = '⚠ :'
 " configure the title text for quickfix and location list buffers
 let g:airline#extensions#quickfix#quickfix_text = 'Quickfix'
 let g:airline#extensions#quickfix#location_text = 'Location'
@@ -752,7 +770,7 @@ endif
 " Buffer Explorer uses mappings: <leader>+be/bs/bv/bt
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                             Syntastic                                     "
+"                             syntastic                                     "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Set your compiler executable(defaults to g++, or clang++ if g++ is not found)
@@ -892,3 +910,13 @@ let g:used_javascript_libs = 'jquery,angularjs, angularui'
 " let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
 " let g:rainbow_ctermfgs = ['lightblue', 'lightgreen', 'yellow', 'red', 'magenta']
 let g:rainbow_active = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                             Misc.
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Clear the screen after existing  Vim
+au VimLeave * :!clear
+
+" read file in a different encoding example: shift-jis for instance
+"vim -c "e ++enc=shift-jis"  file
