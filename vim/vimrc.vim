@@ -153,6 +153,8 @@ set spellfile=$HOME/dotfiles/vim/spell/en.utf-8.add
 " TODO: transfer all our custom mapping to our vim_shortcuts file
 
 " DISPLAY SETTINGS
+colorscheme solarized   " sets the colorscheme
+set background=light    " enable for light terminals
 set showmatch           " show matching bracket (briefly jump) brackets/braces/parantheses
 set showcmd             " show typed command in status bar
 set ruler               " show cursor position in status bar
@@ -259,11 +261,12 @@ set undodir=~/tmp,/var/tmp,/tmp,$TEMP
 " root.
 set tags=./tags;/
 
-set visualbell          " Silence the bell, use a flash instead
-set noerrorbells        " don't beep
+" turns off all error bells, use a flash instead
+set noerrorbells
+set visualbell
 
-set t_Co=256
-syntax on               " use syntax coloring
+set t_Co=256            " set the number of colors to 256 for the terminal
+syntax on               " use syntax coloring: on/off/reset/clear
 
 " none of these should be word dividers, so make them not be
 set iskeyword+=_,$,@,%,#,*
@@ -709,14 +712,12 @@ au vimrc FileType gitcommit setlocal spell! spelllang=en_us
 "                             vim-colors-solarized                          "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" enable solarized theme colors
-syntax enable
 let g:solarized_termtrans = 0
 let g:solarized_termcolors=256
 " visibility of white-spaces when using set list. Could be: low, normal or high
 let g:solarized_visibility="low"
-setlocal background=light "light | dark"
-colorscheme solarized
+setlocal background=light "set local background color: light | dark
+" toggle background color from light to dark and vice-versa
 call togglebg#map("<F5>")
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
