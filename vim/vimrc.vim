@@ -22,11 +22,6 @@ call vundle#begin()
 " vundle will add the plugin folders to the runtimepath only after it has seen
 " the plugin's Plugin command.
 
-Plugin 'VundleVim/Vundle.vim'
-" Use the more lightweight vim-airline instead of powerline
-" Plugin 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
 Plugin 'Conque-GDB'
 Plugin 'FuzzyFinder'
 Plugin 'Gundo'
@@ -39,45 +34,48 @@ Plugin 'Valloric/ListToggle' "Toggle the quickfix and location lists display
 Plugin 'Valloric/MatchTagAlways'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Valloric/xmledit'
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'YankRing.vim'
-Plugin 'aaronbieber/vim-quicktask'
-Plugin 'altercation/vim-colors-solarized'
 Plugin 'a.vim'
 " Seems more active than tpope/vim-surround
+Plugin 'aaronbieber/vim-quicktask'
+Plugin 'altercation/vim-colors-solarized'
 Plugin 'anyakichi/vim-surround', {'name': 'anyakichi-vim-surround'}
+Plugin 'bufkill.vim'
 Plugin 'chrisbra/csv.vim'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'ervandew/supertab'
+Plugin 'godlygeek/tabular'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-codefmtlib'
+Plugin 'google/vim-glaive'
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-syncopate'
+Plugin 'greyblake/vim-preview' " call :Preview to open rendered in browser
+Plugin 'groenewege/vim-less'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'helino/vim-json'
+Plugin 'honza/vim-snippets'
 Plugin 'jQuery'
-" Plugin 'jeaye/color_coded'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'jiangmiao/simple-javascript-indenter'
 Plugin 'jlanzarotta/bufexplorer'
 Plugin 'jnwhiteh/vim-golang'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'helino/vim-json'
-Plugin 'honza/vim-snippets'
-Plugin 'godlygeek/tabular'
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-glaive'
-Plugin 'google/vim-codefmtlib'
-Plugin 'google/vim-codefmt'
-Plugin 'google/vim-syncopate'
-Plugin 'greyblake/vim-preview' " call :Preview to open rendered in browser
-Plugin 'groenewege/vim-less'
 Plugin 'kien/ctrlp.vim'
 Plugin 'ktonga/vim-follow-my-lead'
 Plugin 'majutsushi/tagbar'
+Plugin 'matchit.zip'
+Plugin 'mattn/emmet-vim'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'oblitum/rainbow'
 Plugin 'octol/vim-cpp-enhanced-highlight'
 Plugin 'othree/eregex.vim'
-Plugin 'othree/html5-syntax.vim'
+Plugin 'othree/html5.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
+Plugin 'plasticboy/vim-markdown'
 Plugin 'python.vim'
 Plugin 'python_match.vim'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'rdnetto/YCM-Generator'
 Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
 Plugin 'scrooloose/nerdcommenter'
@@ -88,18 +86,20 @@ Plugin 'tomtom/tcomment_vim'
 Plugin 'tomtom/tlib_vim'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown', {'name': 'vim-dev-markdown'}
 Plugin 'tpope/vim-speeddating'
 " Plugin 'tpope/vim-surround'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-jp/cpp-vim'
 Plugin 'wincent/command-t'
 Plugin 'wordlist.vim'
-Plugin 'xu-cheng/brew.vim'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
 Plugin 'xolox/vim-session'
+Plugin 'xu-cheng/brew.vim'
 
 " non github repos: Plugin 'git://git.wincent.com/command-t.git'
 " ...
@@ -156,6 +156,7 @@ set spellfile=$HOME/dotfiles/vim/spell/en.utf-8.add
 colorscheme solarized   " sets the colorscheme
 set background=light    " enable for light terminals
 set showmatch           " show matching bracket (briefly jump) brackets/braces/parantheses
+set showmode            " show mode in status bar (insert/replace/...)
 set showcmd             " show typed command in status bar
 set ruler               " show cursor position in status bar
 set title               " show file in titlebar
@@ -176,13 +177,15 @@ set fillchars+=stl:\ ,stlnc:\
 " The "longest" option makes completion insert the longest prefix of all
 " the possible matches; see :h completeopt
 set completeopt=menu,menuone,longest
-"set switchbuf=useopen,usetab
+set switchbuf=useopen,usetab
 
 " popup menu and popup menu select colors
 " highlight Pmenu ctermfg=<color> ctermbg=<color>
 " highlight PmenuSel ctermfg=<color> ctermbg=<color>
 highlight Pmenu ctermfg=Black ctermbg=White gui=bold
 highlight PmenuSel ctermfg=White ctermbg=DarkGray gui=bold
+
+set showtabline=2       " Always show the tabline even if we have only one tab
 
 " EDITOR SETTINGS
 set ignorecase          " case insensitive searching
@@ -209,6 +212,9 @@ set number              " Display line numbers, use set nonumber to disable
 " misc settings
 set fileformat=unix     " file mode is unix
 set fileformats=unix,mac,dos   " detects unix, dos, mac file formats in that order
+
+set viminfo='20,\"500   " remember copy registers after quitting in the .viminfo
+                        " file -- 20 jump links, regs up to 500 lines'
 
 set hidden              " allows making buffers hidden even with unsaved changes
 set history=1000        " remember more commands and search history
@@ -240,8 +246,6 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=m
 set guioptions-=M
-
-set showtabline=2       " Always show the tabline even if we have only one tab"
 
 " this makes sure that shell scripts are highlighted
 " as bash scripts and not sh scripts
@@ -595,13 +599,6 @@ let delimitMate_matchpairs = "(:),[:],{:},<:>"
 let delimitMate_quotes = "\" ' ` *"
 au FileType html let b:delimitMate_quotes = "\" '"
 
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" "                             powerline                                     "
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" " powerline: when statusline is hidden or or appear only in split window
-" let g:Powerline_symbols = "unicode" "fancy | unicode?
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             vim-airline                                   "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -692,8 +689,8 @@ let g:yankring_history_dir = '$HOME/tmp/vim'
 " this is so that single char deletes don't end up in the yankring
 let g:yankring_min_element_length = 2
 let g:yankring_window_height = 14
-
 nnoremap <leader>R :YRShow<CR>
+
 " this makes Y yank from the cursor to the end of the line, which makes more
 " sense than the default of yanking the whole current line (we can use yy for
 " that)
@@ -756,13 +753,15 @@ nmap <leader>b :CommandTBuffer<CR>
 "                             vim-preview                                   "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Use :Preview command to open in browser!
-
 " This forces vim-preview to use the default browser on linux; it already uses
 " 'open' on Mac.
 if has("unix")
   let g:PreviewBrowsers = "xdg-open"
 endif
+
+let g:PreviewMarkdownFences = 1
+
+" Use :Preview command to open in browser!
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             bufexplorer                                   "
@@ -858,19 +857,6 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
 "let g:UltiSnipsEditSplit="vertical"
-
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" "                             color_coded                                   "
-" """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"
-" " color_coded plugin (requires lua)
-" if has("lua")
-"   " Disable color_coded in diff mode
-"   if &diff
-"     let g:color_coded_enabled = 0
-"   endif
-"   let g:color_coded_filetypes = ['c', 'cpp', 'objc']
-" endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             supertab                                      "
