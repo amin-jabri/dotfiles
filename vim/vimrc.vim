@@ -37,10 +37,9 @@ Plugin 'Valloric/xmledit'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'YankRing.vim'
 Plugin 'a.vim'
-" Seems more active than tpope/vim-surround
 Plugin 'aaronbieber/vim-quicktask'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'anyakichi/vim-surround', {'name': 'anyakichi-vim-surround'}
+Plugin 'anyakichi/vim-surround' " Seems more active than tpope/vim-surround
 Plugin 'bufkill.vim'
 Plugin 'chrisbra/csv.vim'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
@@ -67,6 +66,7 @@ Plugin 'ktonga/vim-follow-my-lead'
 Plugin 'majutsushi/tagbar'
 Plugin 'matchit.zip'
 Plugin 'mattn/emmet-vim'
+Plugin 'matze/vim-move'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'oblitum/rainbow'
 Plugin 'octol/vim-cpp-enhanced-highlight'
@@ -90,7 +90,7 @@ Plugin 'tpope/vim-git'
 Plugin 'tpope/vim-haml'
 Plugin 'tpope/vim-markdown', {'name': 'vim-dev-markdown'}
 Plugin 'tpope/vim-speeddating'
-" Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-surround', {'name': 'tpope-vim-surround'}
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-jp/cpp-vim'
@@ -355,6 +355,8 @@ if has("unix") && strlen($MYVIMRC) < 1
   let $MYVIMRC=$HOME . '/.vimrc'
 endif
 
+
+
 " Highlight Class and Function names
 function! s:HighlightFunctionsAndClasses()
   syn match cCustomFunc      "\w\+\s*\((\)\@="
@@ -488,8 +490,14 @@ map <left> <nop>
 map <right> <nop>
 
 " Remap up and down arrows to move current line up or down
-map <up> ddkP
-map <down> ddp
+" map <up> ddkP
+" map <down> ddp
+" using vim-move plugin also enables move for blocks in visual mode
+nmap <up> <Plug>MoveLineUp
+vmap <up> <Plug>MoveBlockUp
+nmap <down> <Plug>MoveLineDown
+vmap <down> <Plug>MoveBlockDown
+
 
 " Switches to the previous buffer that was shown in the current window, but also
 " closes the current buffer before switching to the previous one
@@ -899,7 +907,7 @@ let g:used_javascript_libs = 'jquery,angularjs, angularui'
 let g:rainbow_active = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                             Misc.
+"                             Misc.                                         "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Clear the screen after existing  Vim
