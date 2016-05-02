@@ -5,8 +5,7 @@
 "                                preamble                                 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" This Vi IMproved not vi
-set nocompatible
+set nocompatible        " This Vi IMproved not vi
 
 " Needed for vundle, will be turned on after vundle inits
 filetype off
@@ -24,7 +23,6 @@ call vundle#begin()
 
 Plugin 'Conque-GDB'
 Plugin 'FuzzyFinder'
-Plugin 'Gundo'
 Plugin 'L9'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'MarcWeber/vim-addon-mw-utils'
@@ -81,6 +79,7 @@ Plugin 'rstacruz/sparkup.git', {'rtp': 'vim/'}
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
+Plugin 'sjl/gundo.vim'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'tomtom/tlib_vim'
@@ -498,7 +497,6 @@ vmap <up> <Plug>MoveBlockUp
 nmap <down> <Plug>MoveLineDown
 vmap <down> <Plug>MoveBlockDown
 
-
 " Switches to the previous buffer that was shown in the current window, but also
 " closes the current buffer before switching to the previous one
 noremap <leader>bq <c-^> :bd #<cr>
@@ -615,6 +613,8 @@ au FileType html let b:delimitMate_quotes = "\" '"
 let g:airline_powerline_fonts = 1
 " Automatically displays all buffers when there's only one tab open
 let g:airline#extensions#tabline#enabled = 1
+" Enable wordcount
+let g:airline#extensions#wordcount#enabled = 1
 " Force status line to appear all the time
 let g:airline_theme='powerlineish'
 " enable/disable tmuxline integration
@@ -733,10 +733,10 @@ let g:notes_directories = ['~/Notes']
 let g:notes_suffix = '.txt'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                             Gundo                                         "
+"                             gundo                                         "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Gundo plugin key mapping
+" gundo plugin key mapping
 nnoremap <F4> :GundoToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
