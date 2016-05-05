@@ -161,6 +161,7 @@ set ruler               " show cursor position in status bar
 set title               " show file in titlebar
 set undofile            " stores undo state even when files are closed (in undodir)
 set cursorline          " highlights the current line
+set winaltkeys=no       " turns off the Alt key bindings to the gui menu
 
 " When you type the first tab, it will complete as much as possible, the second
 " tab hit will provide a list, the third and subsequent tabs will cycle through
@@ -308,6 +309,14 @@ if v:version >= 704
   set regexpengine=1
 endif
 
+" The alt (option) key on macs now behaves like the 'meta' key. This means we
+" can now use <m-x> or similar as maps. This is buffer local, and it can easily
+" be turned off when necessary (for instance, when we want to input special
+" characters) with :set nomacmeta.
+if has("gui_macvim")
+  set macmeta
+endif
+
 if has('unnamedplus')
   " By default, Vim will not use the system clipboard when yanking/pasting to
   " the default register. This option makes Vim use the system default
@@ -348,13 +357,19 @@ augroup vimrc
   autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
 augroup END
 
+" Sets a font for the GUI
+if has("gui_gtk2")
+  set guifont=Inconsolata-dz\ for\ Powerline:h12
+elseif has("gui_macvim")
+  " My Mac has a fairly high DPI so the font needs to be bigger
+  set guifont=Inconsolata\ for\ Powerline:h14
+end
+
 " Sometimes, $MYVIMRC does not get set even though the vimrc is sourced
 " properly. So far, I've only seen this on Linux machines on rare occasions.
 if has("unix") && strlen($MYVIMRC) < 1
   let $MYVIMRC=$HOME . '/.vimrc'
 endif
-
-
 
 " Highlight Class and Function names
 function! s:HighlightFunctionsAndClasses()
@@ -429,6 +444,15 @@ nnoremap <F9> :Make<CR>
 nnoremap / /\v
 vnoremap / /\v
 
+" With this map, we can select some text in visual mode and by invoking the map,
+" have the selection automatically filled in as the search text and the cursor
+" placed in the position for typing the replacement text. Also, this will ask
+" for confirmation before it replaces any instance of the search text in the
+" file.
+" NOTE: We're using %S here instead of %s; the capital S version comes from the
+" eregex.vim plugin and uses Perl-style regular expressions.
+vnoremap <C-r> "hy:%S/<C-r>h//c<left><left>
+
 " Fast saving
 nnoremap <leader>w :w!<cr>
 
@@ -436,13 +460,19 @@ nnoremap <leader>w :w!<cr>
 " <leader>ev brings up .vimrc
 noremap <silent> <leader>ev :e! $MYVIMRC<CR>
 " <leader>sv reloads it and makes all changes active (file has to be saved first)
-noremap <silent> <leader>sv :so $MYVIMRC<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+noremap <silent> <leader>sv :so $MYVIMRC<CR>:AirlineRefresh<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
 " with this, we can now type ",." to exit out of insert mode
 " if we really wanted to type ",.", then just type one char, wait half a sec,
 " type another
 inoremap ,. <Esc>
 vnoremap ,. <Esc>
+
+" CTRL-U and CTRL-W in insert mode cannot be undone.  Use CTRL-G u to first
+" break undo, so that we can undo those changes after inserting a line break.
+" For more info, see: http://vim.wikia.com/wiki/Recover_from_accidental_Ctrl-U
+inoremap <c-u> <c-g>u<c-u>
+inoremap <c-w> <c-g>u<c-w>
 
 " This command will allow us to save a file we don't have permission to save
 " *after* we have already opened it. Super useful.
