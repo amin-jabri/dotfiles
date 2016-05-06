@@ -332,6 +332,14 @@ else
   set clipboard+=unnamed
 endif
 
+" UltiSnips is missing a setf trigger for snippets on BufEnter
+autocmd vimrc BufEnter *.snippets setf snippets
+
+" In UltiSnips snippet files, we want actual tabs instead of spaces for indents.
+" US will use those tabs and convert them to spaces if expandtab is set when the
+" user wants to insert the snippet.
+autocmd vimrc FileType snippets set noexpandtab
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                           More involved tweaks                          "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -359,10 +367,10 @@ augroup END
 
 " Sets a font for the GUI
 if has("gui_gtk2")
-  set guifont=Inconsolata-dz\ for\ Powerline:h12
+  set guifont=Source\ Code\ Pro\ for\ Powerline:h11
 elseif has("gui_macvim")
   " My Mac has a fairly high DPI so the font needs to be bigger
-  set guifont=Inconsolata\ for\ Powerline:h14
+  set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 end
 
 " Sometimes, $MYVIMRC does not get set even though the vimrc is sourced
@@ -806,6 +814,16 @@ let g:PreviewMarkdownFences = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Buffer Explorer uses mappings: <leader>+be/bs/bv/bt
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                bufkill                                  "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Use the arrows for something useful
+" :BB switches to the previous buffer shown in the current window, :BF switches
+" to the next one; it's like a buffer history for every window
+noremap <right> :BF<cr>
+noremap <left> :BB<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             syntastic                                     "
