@@ -591,6 +591,7 @@ call glaive#Install()
 " (The latter must be installed before it can be used.)
 " Optional: Enable codefmt's default mappings on the <Leader>= prefix.
 Glaive codefmt plugin[mappings]
+Glaive codefmt clang_format_style='file'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             Syncopate                                    "
