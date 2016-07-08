@@ -742,7 +742,7 @@ nnoremap <leader>R :YRShow<CR>
 " sense than the default of yanking the whole current line (we can use yy for
 " that)
 function! YRRunAfterMaps()
-    nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
+  nnoremap Y   :<C-U>YRYankCount 'y$'<CR>
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -756,11 +756,18 @@ au vimrc FileType gitcommit setlocal spell! spelllang=en_us
 "                             vim-colors-solarized                          "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:solarized_termtrans = 0
-let g:solarized_termcolors=256
+" Use transparent background: 1 | 0
+let g:solarized_termtrans=0
+" Use degraded 256 colorscheme instead of the accurate ansi 16 colorscheme
+let g:solarized_termcolors=16
 " visibility of white-spaces when using set list. Could be: low, normal or high
-let g:solarized_visibility="low"
-setlocal background=light "set local background color: light | dark
+let g:solarized_visibility="normal"
+" Set local background color: light | dark
+if has('gui_running')
+  setlocal background=dark
+else
+  setlocal background=light
+endif
 " toggle background color from light to dark and vice-versa
 call togglebg#map("<F5>")
 
@@ -937,6 +944,7 @@ let g:indent_guides_guide_size = 2
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             vim-javascript-syntax                         "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 au FileType javascript call JavaScriptFold()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
