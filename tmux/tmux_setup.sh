@@ -13,4 +13,9 @@ else
 fi
 
 # add tmux plugin manager config last
-cat $HOME/dotfiles/tmux/tmux_plugin_manager.conf >> ~/.tmux.conf
+cat  >> ~/.tmux.conf <<-END-OF-SETTINGS-TMUX
+
+# tmux plugin manager settings
+if-shell "if [[`tmux -V | cut -d' ' -f2` >= 1.9]]; then true; else false; fi" \\
+'source $HOME/dotfiles/tmux/tmux_plugin_manager.conf'
+END-OF-SETTINGS-TMUX
