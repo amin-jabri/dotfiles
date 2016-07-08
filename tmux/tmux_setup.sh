@@ -11,3 +11,6 @@ then
 else
   cat $HOME/dotfiles/tmux/tmux-linux.conf >> ~/.tmux.conf
 fi
+
+# add tmux plugin manager config last
+cat $HOME/dotfiles/tmux/tmux_plugin_manager.conf >> ~/.tmux.conf
