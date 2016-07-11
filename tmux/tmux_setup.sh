@@ -15,7 +15,7 @@ fi
 # add tmux plugin manager config last
 cat  >> ~/.tmux.conf <<-END-OF-SETTINGS-TMUX
 
-# tmux plugin manager settings
-if-shell "if [[`tmux -V | cut -d' ' -f2` >= 1.9]]; then true; else false; fi" \\
-'source $HOME/dotfiles/tmux/tmux_plugin_manager.conf'
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+if-shell "if [[\`tmux -V | cut -d' ' -f2\` >= 1.9]]; then true; else false; fi" \\
+run '~/.tmux/plugins/tpm/tpm'
 END-OF-SETTINGS-TMUX
