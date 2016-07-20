@@ -658,7 +658,7 @@ let g:airline#extensions#wordcount#enabled = 1
 " Force status line to appear all the time
 let g:airline_theme='solarized'   " powerlinelish, solarized,..
 " enable/disable tmuxline integration
-let g:airline#extensions#tmuxline#enabled = 0
+let g:airline#extensions#tmuxline#enabled = 1
 " configure which mode colors should be used in tmux status line: normal, insert
 let airline#extensions#tmuxline#color_template = 'normal'
 " enable/disable syntastic integration
