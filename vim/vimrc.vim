@@ -27,6 +27,7 @@ Plugin 'L9'
 Plugin 'Lokaltog/vim-easymotion'
 Plugin 'MarcWeber/vim-addon-mw-utils'
 Plugin 'Raimondi/delimitMate'
+Plugin 'Shougo/unite.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'Valloric/ListToggle' "Toggle the quickfix and location lists display
 Plugin 'Valloric/MatchTagAlways'
