@@ -762,6 +762,8 @@ let g:solarized_termtrans=0
 let g:solarized_termcolors=16
 " visibility of white-spaces when using set list. Could be: low, normal or high
 let g:solarized_visibility="normal"
+" highlight trailing spaces
+let g:solarized_hitrail=1
 " Set local background color: light | dark
 if has('gui_running')
   setlocal background=dark
@@ -847,7 +849,7 @@ let g:syntastic_cpp_auto_refresh_includes = 1
 " To disable the include of the default include dirs (such as /usr/include)
 let g:syntastic_cpp_no_default_include_dirs = 1
 " add additional compiler options to the syntax checking execution
-let g:syntastic_cpp_compiler_options = ' -std=c++1y -pthread'
+let g:syntastic_cpp_compiler_options = ' -std=c++14 -pthread'
 let g:syntastic_check_on_open=0
 let g:syntastic_enable_signs=1
 " enable or disable debugging syntastic output
