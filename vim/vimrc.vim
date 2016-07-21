@@ -923,7 +923,15 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 "let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 " If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsEditSplit="context"
+" Directory for the private snippet definition files
+let g:UltiSnipsSnippetsDir = $HOME . '/dotfiles/vim/UltiSnips'
+" Search directories forr public snippets
+let g:UltiSnipsSnippetDirectories=["UltiSnips"]
+" Enable/Disable looking forr SnipMate snippets
+let g:UltisnipsEnableSnipMate=1
+" for var substitution inside snippets
+let g:snips_author = 'Mohamed Amin JABRI'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             supertab                                      "

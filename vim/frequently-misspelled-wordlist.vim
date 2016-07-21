@@ -1,6 +1,6 @@
 " Abbreviations
-:ab #t // TODO ()<Esc>iMohamed Amin JABRI<Esc>E<Esc>a:
-:ab #f // FIXME ()<Esc>iMohamed Amin JABRI<Esc>E<Esc>a:
+:ab #T // TODO ()<Esc>iMohamed Amin JABRI<Esc>E<Esc>a:
+:ab #F // FIXME ()<Esc>iMohamed Amin JABRI<Esc>E<Esc>a:
 
 " frequent Errors correction
 iabbrev teh the
