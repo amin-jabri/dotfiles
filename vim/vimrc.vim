@@ -94,7 +94,7 @@ Plugin 'tpope/vim-surround', {'name': 'tpope-vim-surround'}
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-jp/cpp-vim'
-Plugin 'wincent/command-t'
+Plugin 'wincent/command-t' " Requires compilation
 Plugin 'wordlist.vim'
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-notes'
@@ -802,6 +802,15 @@ vmap <leader>tb :TCommentBlock<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             CommandT                                      "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:CommandTMaxHeight = 30
+let g:CommandTMatchWindowReverse = 1 " shows results in reverse order
+let g:CommandTTraverseSCM = 'pwd'
+set wildignore+=*.o,*.obj,.git,*.pyc,*.so,READONLY,llvm,Library*
+set wildignore+=CMakeFiles
+" This appears to be necessary; command-t doesn't appear to be falling back to
+" wildignore on its own.
+let g:CommandTWildIgnore=&wildignore
 
 nmap <leader>e :CommandT<CR>
 nmap <leader>b :CommandTBuffer<CR>
