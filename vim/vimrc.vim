@@ -812,8 +812,9 @@ set wildignore+=CMakeFiles
 " wildignore on its own.
 let g:CommandTWildIgnore=&wildignore
 
-nmap <leader>e :CommandT<CR>
-nmap <leader>b :CommandTBuffer<CR>
+nmap <leader>E :CommandT<CR>
+nmap <leader>B :CommandTBuffer<CR>
+nnoremap <leader>' :CommandTFlush<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             vim-preview                                   "
