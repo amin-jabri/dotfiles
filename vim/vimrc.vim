@@ -684,8 +684,8 @@ let g:airline#extensions#quickfix#location_text = 'Location'
 
 " let g:tmuxline_preset = 'powerline'
 let g:tmuxline_preset = {
-\'a'    : '#S',
-\'b'    : '',
+\'a'    : '#{?session_grouped,[,}#S#{?session_grouped,],}',
+\'b'    : '@#{session_attached}',
 \'win'  : ['#F#I', '#W'],
 \'cwin' : ['#F#I:#P', '#W'],
 \'y' : ['%a %Y-%b-%d', '%R'],
