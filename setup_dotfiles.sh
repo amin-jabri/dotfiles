@@ -24,10 +24,6 @@ then
   ln -f -s $script_directory/misc/gen_cscope_tags.sh ~/bin/gen_cscope_tags.sh
 fi
 
-source $script_directory/bash/setup_bash.sh
-source $script_directory/gitconfig_setup.sh
-source $script_directory/tmux/tmux_setup.sh
-
 # Clone Vundle under .vim/bundle if it does not exist
 if [[ ! -d ~/${VIM_VUNDLE_PLUGINS_DIR}/Vundle.vim ]]
 then
@@ -38,3 +34,7 @@ then
   popd > /dev/null
   echo "Run :PluginInstall in Vim to install your Plugins"
 fi
+
+source $script_directory/bash/setup_bash.sh
+source $script_directory/gitconfig_setup.sh
+source $script_directory/tmux/tmux_setup.sh

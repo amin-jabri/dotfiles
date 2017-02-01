@@ -8,6 +8,11 @@ fi
 # change beer mug emoji for finished build
 export HOMEBREW_INSTALL_BADGE="☕️"
 
+#  for using homebrew-command-not-found tap formulas: requires bash v4 and higer
+if brew command command-not-found-init > /dev/null 2>&1; then
+		eval "$(brew command-not-found-init)";
+fi
+
 # brew-cask symlink into /Applications instead of ~/Applications
 # override on the command line when installing:
 # brew cask install --appdir="~/Applications" google-chrome
