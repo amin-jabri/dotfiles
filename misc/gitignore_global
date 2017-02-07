@@ -48,6 +48,8 @@ tags
 # Unix misc
 .*
 !.gitignore
+!.gitmodules
+!.gitattributes
 !.clang-format
 !.ycm_extra_conf.py
 *~
