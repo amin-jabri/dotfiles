@@ -765,6 +765,7 @@ let g:solarized_termcolors=16
 let g:solarized_visibility="normal"
 " highlight trailing spaces
 let g:solarized_hitrail=1
+let g:solarized_menu=1
 " Set local background color: light | dark
 if has('gui_running')
   setlocal background=dark
@@ -927,9 +928,10 @@ let g:ycm_key_list_previous_completion=['<C-p>', '<Up>']
 let g:ycm_key_detailed_diagnostics = '<leader>d'
 
 nnoremap <leader>y :YcmForceCompileAndDiagnostics<cr>
-nnoremap <leader>yg :YcmCompleter GoTo<CR>
+nnoremap <leader>yG :YcmCompleter GoTo<CR>
 nnoremap <leader>yD :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>yd :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>yF :YcmCompleter FixIt<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             UltiSnips                                     "
