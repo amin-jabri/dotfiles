@@ -41,6 +41,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'anyakichi/vim-surround' " Seems more active than tpope/vim-surround
 Plugin 'bufkill.vim'
 Plugin 'chrisbra/csv.vim'
+Plugin 'dawikur/algorithm-mnemonics.vim'
 Plugin 'docker/docker' , {'rtp': '/contrib/syntax/vim/'}
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'ervandew/supertab'
@@ -963,6 +964,15 @@ let g:snips_author = 'Mohamed Amin JABRI'
 
 let g:SuperTabDefaultCompletionType = '<C-n>'
 let g:SuperTabClosePreviewOnPopupClose = 1
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" 														algorithm-mnemonics 													"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" const type qualifier position
+let g:algorithm_mnemonics_const_return = "Right"
+" lambda parameter
+let g:algorithm_mnemonics_lambda_parameter = "auto const &value"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                             vim-indent-guide                              "
