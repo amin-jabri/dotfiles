@@ -82,7 +82,7 @@ purple=$(tput setaf 5)
 orange=$(tput setaf 9)
 
 # Less colors for man pages
-export PAGER=less
+export PAGER="less --squeeze-blank-lines"
 # Begin blinking
 export LESS_TERMCAP_mb=$red
 # Begin bold
@@ -99,8 +99,9 @@ export LESS_TERMCAP_ue=$default
 export LESS_TERMCAP_us=$green
 
 #less command line options
-LESS="--squeeze-blank-lines"
-export LESS
+# commnted out due to interference with "git lg" display. Added to PAGER
+# LESS="--squeeze-blank-lines"
+# export LESS
 
 # Start ssh-agent
 if [ -z "$SSH_AUTH_SOCK" ] ; then
