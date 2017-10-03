@@ -94,6 +94,7 @@ Plugin 'tpope/vim-surround', {'name': 'tpope-vim-surround'}
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'vim-jp/cpp-vim'
+Plugin 'wellle/targets.vim'
 Plugin 'wincent/command-t' " Requires compilation
 Plugin 'wordlist.vim'
 Plugin 'xolox/vim-misc'
@@ -656,7 +657,7 @@ let g:airline#extensions#tabline#enabled = 1
 " Enable wordcount
 let g:airline#extensions#wordcount#enabled = 1
 " Force status line to appear all the time
-let g:airline_theme='solarized'   " powerlinelish, solarized,..
+let g:airline_theme='powerlineish'   " powerlineish, solarized,..
 " enable/disable tmuxline integration
 let g:airline#extensions#tmuxline#enabled = 0
 " configure which mode colors should be used in tmux status line: normal, insert
@@ -768,11 +769,7 @@ let g:solarized_visibility="normal"
 let g:solarized_hitrail=1
 let g:solarized_menu=1
 " Set local background color: light | dark
-if has('gui_running')
-  setlocal background=dark
-else
-  setlocal background=light
-endif
+setlocal background=light
 " toggle background color from light to dark and vice-versa
 call togglebg#map("<F5>")
 

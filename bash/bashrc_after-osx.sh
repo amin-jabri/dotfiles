@@ -18,8 +18,8 @@ fi
 # brew cask install --appdir="~/Applications" google-chrome
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
-if [ -f ~/access_tokens ]; then
-	source ~/access_tokens
+if [ -f ~/sensitive/github_access_tokens ]; then
+	source ~/sensitive/github_access_tokens
 fi
 
 # add Homebrew sbin directory to path
