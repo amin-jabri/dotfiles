@@ -7,7 +7,7 @@ current_email=$(git config --global --get user.email)
 # if current_email is empty, then add an email
 if [[ -z "$current_email" ]]
 then
-    git config --global user.email "amin.jabri@yahoo.fr"
+    git config --global user.email "amin.jabri@gmail.com"
 fi
 
 git config --global github.user amin-jabri
@@ -29,6 +29,7 @@ git config --global alias.dc "!git diff | cdiff -s"
 git config --global alias.dcs "!git diff --staged | cdiff -s"
 git config --global alias.cp "cherry-pick"
 git config --global alias.rb "rebase"
+git config --global alias.mb "merge-base"
 
 git config --global alias.lg "log --graph --decorate --all --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative"
 
