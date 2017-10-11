@@ -16,5 +16,6 @@ cat  >> ~/.tmux.conf <<-END-OF-SETTINGS-TMUX
 
 # Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
 #requires tmux version 1.9 or higher
-run-shell '~/.tmux/plugins/tpm/tpm'
+if-shell "[[ -f ~/.tmux/plugins/tpm/tpm ]]" \
+'run-shell "~/.tmux/plugins/tpm/tpm"'
 END-OF-SETTINGS-TMUX
