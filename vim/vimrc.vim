@@ -56,6 +56,7 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'leshill/vim-json'
 Plugin 'honza/vim-snippets'
 Plugin 'jQuery'
+Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'jiangmiao/simple-javascript-indenter'
 Plugin 'jlanzarotta/bufexplorer'
@@ -210,6 +211,7 @@ set expandtab           " turn a tab into spaces, unless using Ctrl-V<tab>
 set laststatus=2        " the statusline is now always shown
 set noshowmode          " don't show the mode ("-- INSERT --") at the bottom
 set number              " Display line numbers, use set nonumber to disable
+set relativenumber      " Display relative line numbers instead of absolute ones
 
 " misc settings
 set fileformat=unix     " file mode is unix
@@ -438,6 +440,9 @@ nnoremap <silent> <Leader>H :set cursorline! cursorcolumn!<CR>
 
 " toggle numberline on and off by pressing one key: N
 nnoremap <silent> <Leader>N :set number!<CR>
+
+" toggle relative numberline on and off by pressing keys: RN
+nnoremap <silent> <Leader>RN :set relativenumber!<CR>
 
 " toggle fold column show
 nnoremap <silent> <leader>F :call FoldColumnToggle()<cr>
