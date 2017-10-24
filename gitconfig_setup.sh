@@ -76,6 +76,7 @@ git config --global core.excludesfile ~/.gitignore_global
 # automatically use SSH. No more password prompts!
 git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 git config --global url.ssh://git@gist.github.com/.insteadOf https://gist.github.com/
+git config --global url.ssh://git@git.omni.hpcc.jp/.insteadOf https://git.omni.hpcc.jp/
 
 # Makes "git stash show" display a diff by default
 git config --global stash.showPatch true
