@@ -32,6 +32,13 @@ then
     echo "source ${script_dir}/bashrc_after.sh" >> ~/.bash_profile
     echo "source ${script_dir}/bashrc_after-osx.sh" >> ~/.bash_profile
   fi
+else
+
+  file_found=$( ! grep bash_cowsay_logout.sh ~/.bash_logout > /dev/null 2>&1 ; echo $?)
+  if [[ ! -f ~/.bash_logout || ! ${file_found} ]]
+  then
+    echo "source ${script_dir}/bash_cowsay_logout.sh" >> ~/.bash_logout
+  fi
 fi
 
 # add links to our other files if they are not there already
