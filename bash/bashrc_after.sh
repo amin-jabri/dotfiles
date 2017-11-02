@@ -62,14 +62,11 @@ PS1='[$(branch_display)\u@\h:\[${c_red}\]\W\[${c_sgr0}\]]\$ '
 bind 'set completion-ignore-case on'
 
 export EDITOR="vim -u $HOME/.vimrc -N -U NONE -X"
-export PATH=$PATH:$HOME/bin
 
 export LANG=en_US.UTF-8
 
 #tmux wants term to be set to screen or screen-256color
 export TERM=screen-256color
-
-export POWERLINE_CONFIG_COMMAND=`which powerline-config 2>/dev/null`
 
 # No duplicates in command history
 export HISTCONTROL=ignoreboth:erasedups
@@ -81,8 +78,6 @@ green=$(tput setaf 2)
 purple=$(tput setaf 5)
 orange=$(tput setaf 9)
 
-# Less colors for man pages
-export PAGER="less --squeeze-blank-lines"
 # Begin blinking
 export LESS_TERMCAP_mb=$red
 # Begin bold
@@ -98,13 +93,9 @@ export LESS_TERMCAP_ue=$default
 # Begin underline
 export LESS_TERMCAP_us=$green
 
-#less command line options
-# commnted out due to interference with "git lg" display. Added to PAGER
-# LESS="--squeeze-blank-lines"
-# export LESS
+# Less colors for man pages
+export PAGER="less --squeeze-blank-lines" # Don't set  it in LESS as it
+                                          # interferes with git lg
 
-# Start ssh-agent
-# if [ -z "$SSH_AUTH_SOCK" ] ; then
-# 	eval `ssh-agent -s` >/dev/null 2>&1
-# 	# ssh-add
-# fi
+# Add home directory's bin to path
+export PATH=$PATH:$HOME/bin
