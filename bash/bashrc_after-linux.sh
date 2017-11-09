@@ -2,7 +2,7 @@
 
 # Start ssh-agent
 if [ -z "${SSH_AUTH_SOCK}" ] ; then
-	eval `ssh-agent -s` >/dev/null 2>&1
+	eval `ssh-agent -s`
 	# ssh-add
 fi
 
