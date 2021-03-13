@@ -362,7 +362,7 @@ endif
 " remove trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 " remove empty lines when saving
-au BufWritePre *.* :silent! %s#\($\n\s*\)\+\%$##
+" au BufWritePre *.* :silent! %s#\($\n\s*\)\+\%$##
 
 augroup vimrc
   " Automatically delete trailing DOS-returns and whitespace on file open and
