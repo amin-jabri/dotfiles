@@ -364,11 +364,11 @@ autocmd BufWritePre * :%s/\s\+$//e
 " remove empty lines when saving
 " au BufWritePre *.* :silent! %s#\($\n\s*\)\+\%$##
 
-augroup vimrc
-  " Automatically delete trailing DOS-returns and whitespace on file open and
-  " write.
-  autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
-augroup END
+" augroup vimrc
+"   " Automatically delete trailing DOS-returns and whitespace on file open and
+"   " write.
+"   autocmd BufRead,BufWritePre,FileWritePre * silent! %s/[\r \t]\+$//
+" augroup END
 
 " Sets a font for the GUI
 if has("gui_gtk2")
