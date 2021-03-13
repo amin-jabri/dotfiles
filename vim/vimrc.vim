@@ -359,7 +359,7 @@ if has("multi_byte")
   set fileencodings=ucs-bom,utf-8,latin1
 endif
 
-" remove trailing whitespace and empty lines
+" remove trailing whitespace
 autocmd BufWritePre * :%s/\s\+$//e
 " remove empty lines when saving
 au BufWritePre *.* :silent! %s#\($\n\s*\)\+\%$##
