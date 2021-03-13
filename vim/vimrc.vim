@@ -21,7 +21,7 @@ call vundle#begin()
 " vundle will add the plugin folders to the runtimepath only after it has seen
 " the plugin's Plugin command.
 
-Plugin 'Conque-GDB'
+" Plugin 'Conque-GDB'
 Plugin 'FuzzyFinder'
 Plugin 'L9'
 Plugin 'Lokaltog/vim-easymotion'
